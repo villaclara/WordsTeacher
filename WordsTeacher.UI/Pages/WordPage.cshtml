@@ -1,0 +1,38 @@
+﻿@page
+@model WordPageModel
+@{
+	ViewData["Title"] = "Words Bruh";
+}
+
+<div>
+	<h3> Add new word </h3>
+	<form method="post">
+		<input asp-for="OneWord.NickName" type="hidden" />
+		<input asp-for="OneWord.Id" type="hidden" />
+		<p>
+			<label>Definition</label>
+			<input asp-for="OneWord.Definition" />
+		</p>
+		<p>
+			<label>Meaning</label>
+			<input asp-for="OneWord.Meaning" />
+		</p>
+
+		<p><input type="submit" value="Add" /> </p>
+	</form>
+</div>
+
+
+<div>
+	<h3> Words </h3>
+	@{
+		@if(Model.Words.Count() > 0)
+		{
+			foreach(var word in Model.Words)
+				{
+					<p> @word.Definition - @word.Meaning </p>
+				}
+		}
+	}
+</div>
+

@@ -1,0 +1,44 @@
+﻿@* index page used to be LOGIN PAGE 
+
+    First when loading you need to login then you are redirected to words page 
+    where all words will be displayed and there would be possible to add new one
+*@
+
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Log Bruh";
+    //Layout = "Shared/_Layout.cshtml";
+}
+
+<div class="text-center">
+    <h1 class="display-4">login</h1>
+    
+</div>
+
+
+
+@*@if(Model.Request.Cookies.ContainsKey("username"))
+{
+    <p> You already logged in. Now you will be redirected to Words page. </p>
+    <a asp-page="WordPage">word</a>
+}
+else
+{
+    <div>
+        <p> Enter login and password.</p>
+        <p> If you are not registered yet - still enter login and password and you will be registered automatically.</p>
+    </div>
+
+    <div>
+        <form method="post">
+            <p>
+                <label>Definition</label>
+                <input asp-for="Nick" />
+            </p>
+            <p><input type="submit" value="Log in" /> </p>
+        </form>
+    </div>
+}*@
+
+
