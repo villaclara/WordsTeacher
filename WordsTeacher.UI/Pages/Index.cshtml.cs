@@ -10,9 +10,12 @@ namespace WordsTeacher.UI.Pages
 
         private readonly ApplicationContext _ctx;
 
+        [BindProperty]
         public string Nick { get; set; } = "";
 
         private IEnumerable<string> allNickNames { get; set; }
+
+        public bool IsLoggedIn { get; set; } = false;
 
         public IndexModel(ILogger<IndexModel> logger, ApplicationContext ctx)
         {
@@ -29,9 +32,12 @@ namespace WordsTeacher.UI.Pages
             if (HttpContext.Request.Cookies.ContainsKey("username"))
             {
                 Nick = HttpContext.Request.Cookies["username"];
-                
-				//return RedirectToPage("WordPage");
-			}
+                IsLoggedIn = true;
+                //return RedirectToPage("WordPage");
+                HttpContext.Response.Redirect("WordPage");
+            }
+
+            
 
             //return null;
 
@@ -39,11 +45,11 @@ namespace WordsTeacher.UI.Pages
 
         public async Task<IActionResult> OnPost()
         {
-            
-            
-            
-            if (HttpContext.Request.Cookies["username"] != Nick)
-                HttpContext.Response.Cookies.Append("username", Nick);
+
+            HttpContext.Response.Cookies.Append("username", Nick);
+            IsLoggedIn = true;
+      //      if (HttpContext.Request.Cookies["username"] != Nick)
+      //          HttpContext.Response.Cookies.Append("username", Nick);
 
 		    return RedirectToPage("WordPage");
         }

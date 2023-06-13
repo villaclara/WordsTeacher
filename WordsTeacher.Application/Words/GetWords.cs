@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WordsTeacher.DB;
+using WordsTeacher.Domain;
 
 namespace WordsTeacher.Application.Words
 {
@@ -16,14 +17,14 @@ namespace WordsTeacher.Application.Words
             _ctx = ctx;
         }
 
-		public IEnumerable<WordViewModel> Do(string username)
+		public IEnumerable<Word> Do(string username)
 		{
 			if (string.IsNullOrEmpty(username))
 			{
-				return Enumerable.Empty<WordViewModel>();
+				return Enumerable.Empty<Word>();
 			}
 
-			return (IEnumerable<WordViewModel>)_ctx.Words.ToList().Select(x => x.NickName == username);
+			return _ctx.Words.ToList().Where(x => x.NickName == username) ?? Enumerable.Empty<Word>();
 
 
 

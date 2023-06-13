@@ -18,14 +18,9 @@ namespace WordsTeacher.Application.Words
             _context = context;
         }
 
-        public async Task Do (WordViewModel wordmodel)
+        public async Task Do (Word wordmodel)
         {
-            _context.Words.Add(new Word
-            {
-                NickName = wordmodel.NickName,
-                Definition = wordmodel.Definition,
-                Meaning = wordmodel.Meaning
-            });
+            _context.Words.Add(wordmodel);
 
             await _context.SaveChangesAsync();
         }

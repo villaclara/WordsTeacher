@@ -19,21 +19,21 @@ namespace WordsTeacher.UI.Pages
         }
 
         [BindProperty]
-        public WordViewModel OneWord { get; set; }
+        public Word OneWord { get; set; }
 
-        public IEnumerable<WordViewModel> Words { get; set; }
+        public IEnumerable<Word> Words { get; set; }
 
         public void OnGet()
         {
-            Words = new GetWords(_ctx).Do(HttpContext.Request.Cookies["username"]);
+            Words = new GetWords(_ctx).Do(HttpContext.Request.Cookies["username"]!);
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            await new CreateWord(_ctx).Do(new WordViewModel()
+            await new CreateWord(_ctx).Do(new Word()
             {
-                NickName = "",
-                Id = _ctx.Words.Count() + 1,
+                NickName = HttpContext.Request.Cookies["username"]!,
+                //Id = _ctx.Words.Count() + 1,
                 Definition = OneWord.Definition,
                 Meaning = OneWord.Meaning
             });

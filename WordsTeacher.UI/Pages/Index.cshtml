@@ -18,7 +18,7 @@
 
 
 
-@*@if(Model.Request.Cookies.ContainsKey("username"))
+@if(Model.Request.Cookies.ContainsKey("username"))
 {
     <p> You already logged in. Now you will be redirected to Words page. </p>
     <a asp-page="WordPage">word</a>
@@ -33,12 +33,12 @@ else
     <div>
         <form method="post">
             <p>
-                <label>Definition</label>
+                <label>Username</label>
                 <input asp-for="Nick" />
             </p>
             <p><input type="submit" value="Log in" /> </p>
         </form>
     </div>
-}*@
+}
 
 
