@@ -8,16 +8,16 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Log Bruh";
-    //Layout = "Shared/_Layout.cshtml";
+            //Layout = "Shared/_Layout.cshtml";
 }
 
 <div class="text-center">
     <h1 class="display-4">login</h1>
-    
+
 </div>
 
 
-
+@*
 @if(Model.Request.Cookies.ContainsKey("username"))
 {
     <p> You already logged in. Now you will be redirected to Words page. </p>
@@ -39,6 +39,27 @@ else
             <p><input type="submit" value="Log in" /> </p>
         </form>
     </div>
+}*@
+
+
+
+@if (!User.Identity.IsAuthenticated)
+{
+    <div>
+        <p> Enter login </p>
+        <form method="post">
+            <p>
+                <label> username </label>
+                <input asp-for="Nick"/>
+            </p>
+            <p>
+                <input type="submit" value="log in"/>
+            </p>
+        </form>
+    </div>
 }
+
+
+
 
 

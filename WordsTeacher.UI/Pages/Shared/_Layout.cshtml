@@ -31,10 +31,18 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Train">Train</a>
                         </li>
 
-                        @if (User.Identity.IsAuthenticated) ;
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Index">Login</a>
+                            </li>
+                        }
+                        else
+                        {
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Login</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Logout</a>
                         </li>
+                        }
                     </ul>
                 </div>
             </div>

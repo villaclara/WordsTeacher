@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using WordsTeacher.DB;
 using Microsoft.Extensions.Configuration;
 using WordsTeacher.Domain;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +15,8 @@ builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServe
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.LoginPath = "/Index");
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -26,12 +28,15 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapRazorPages();
 
