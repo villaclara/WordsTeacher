@@ -17,10 +17,11 @@ namespace WordsTeacher.UI.Pages
         [BindProperty]
         [DataType(DataType.Text)]
         [Required]
-        public string Nick { get; set; }
+        public string Nick { get; set; } = null!;
 
         public bool IsLoggedIn { get; set; } = false;
 
+        public string? MessageDisplayWhenNoUserNameSet { get; set; } = "";
         public IndexModel(ILogger<IndexModel> logger, ApplicationContext ctx)
         {
             _logger = logger;
@@ -73,7 +74,6 @@ namespace WordsTeacher.UI.Pages
 
             else
             {
-                
                 return RedirectToPage("Index");
             }
         }

@@ -5,57 +5,68 @@
 }
 
 @section nav_section{
+	<header>
+		<div class="container-fluid navi">
+			<nav class="navbar justify-content-center ">
+				<ul class="nav">
 
-
-<header>
-	<div class="container-fluid navi">
-		<nav class="navbar justify-content-center ">
-			<ul class="nav">
-
-				<li class="nav-item">
-					<a class="nav-link active" asp-area="" asp-page="/WordPage">Words</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" asp-area="" asp-page="/Train">Train</a>
-				</li>
-
-				@if (User.Identity is null || !User.Identity.IsAuthenticated)
-				{
-					<li class="nav-item last">
-						<a class="nav-link" asp-area="" asp-page="/Index">Login</a>
+					<li class="nav-item">
+						<a class="nav-link active" asp-area="" asp-page="/WordPage">Words</a>
 					</li>
-				}
-				else
-				{
-					<li class="nav-item last">
-						<a class="nav-link" asp-area="" asp-page="/Index">Logout (@User.Identity.Name)</a>
+					<li class="nav-item">
+						<a class="nav-link" asp-area="" asp-page="/Train">Train</a>
 					</li>
-				}
-			</ul>
-		</nav>
-	</div>
 
-</header>
+					@if (User.Identity is null || !User.Identity.IsAuthenticated)
+					{
+						<li class="nav-item last">
+							<a class="nav-link" asp-area="" asp-page="/Index">Login</a>
+						</li>
+					}
+					else
+					{
+						<li class="nav-item last">
+							<a class="nav-link" asp-area="" asp-page="/Index">Logout (@User.Identity.Name)</a>
+						</li>
+					}
+				</ul>
+			</nav>
+		</div>
+	</header>
 }
 
 
-<div>
-	<h3> Add new word </h3>
-	<form method="post">
-		<input asp-for="OneWord.NickName" type="hidden" />
-		<input asp-for="OneWord.Id" type="hidden" />
-		<p>
-			<label>Word</label>
-			<input asp-for="OneWord.Definition" pattern="branch" autofocus required/>
-		</p>
-		<p>
-			<label>Translation</label>
-			<input asp-for="OneWord.Meaning" pattern="гілка" required/>
-		</p>
 
-		<p><input type="submit" value="Add" /> </p>
+<div class="addwordsection">
+
+	<div class="heading-word"><h2 class="heading2"> Add new word </h2></div>
+
+
+
+	<form method="post">
+		<div class="form-group row">
+			@*	<input asp-for="OneWord.NickName" type="hidden" />
+			<input asp-for="OneWord.Id" type="hidden" />*@
+
+			<label class="col-form-label col-sm-2">Word </label>
+			<div class="col-sm-10">
+				<input class="form-control" asp-for="OneWord.Definition" autofocus required />
+			</div>
+		</div>
+		<div class="form-group row">
+			<label class="col-form-label col-sm-2">Translation</label>
+			<div class="col-sm-10">
+				<input class="form-control" asp-for=" OneWord.Meaning" required />
+			</div>
+		</div>
+			<div class="heading-word">
+				<input class="btn btn-primary" type="submit" value="Add" />
+			</div>
+		
 	</form>
+
 </div>
+
 
 
 <div>

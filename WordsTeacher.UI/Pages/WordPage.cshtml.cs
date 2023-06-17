@@ -19,9 +19,9 @@ namespace WordsTeacher.UI.Pages
         }
 
         [BindProperty]
-        public Word OneWord { get; set; }
+        public Word OneWord { get; set; } = null!;
 
-        public IEnumerable<Word> Words { get; set; }
+        public IEnumerable<Word> Words { get; set; } = Enumerable.Empty<Word>();
 
         public void OnGet()
         {
