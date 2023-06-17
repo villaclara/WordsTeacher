@@ -1,18 +1,104 @@
-html {
-  font-size: 14px;
+
+
+
+/* do things when the width is more / less than 768px. 
+@media (min-width: 768px)
+{
+    nav.navbar{
+        justify-content: center;
+    }
 }
 
-@media (min-width: 768px) {
-  html {
+@media (max-width: 767.98px)
+{
+
+}
+
+
+Extra small     <576px      .col-
+Small           >=576px	    .col-sm-
+Medium          >=768px	    .col-md-
+Large           >=992px	    .col-lg-
+Extra           >=1200px    .col-xl-
+    */
+
+
+/*
+Viewport is the browser window size. 1vw = 1% of viewport width. If the viewport is 50cm wide, 1vw is 0.5cm. */
+/* the word displayed in train page */
+.word-from-train {
+    font-size: 10vw;
+}
+
+
+/* all elements */
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 16px;
-  }
+    
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+
+/* NAVIGATION BAR */
+li.nav-item.last {
+    border-right: none;
 }
 
-body {
-  margin-bottom: 60px;
+div.navi {
+    background-color: #0dbe98;
 }
+
+nav.navbar{
+    /*padding 0 - because if element is inside another then the border will be also displayed*/
+    padding: 0;
+}
+
+
+ul.nav {
+    text-align: center;
+    width: 100%;
+}
+
+
+a.nav-link {
+    font-size: 20px;
+    color: black;
+    border-right: 1px solid;
+    text-shadow: 1px 0 0 black;
+}
+
+    a.nav-link:hover {
+        color: white;
+    }
+
+@media (min-width: 991.98px) {
+    ul.nav {
+        margin: 0 10vw 0 15vw;
+    }
+    input.form-control {
+        width: 50%;
+    }
+}
+
+@media (max-width: 992px) {
+    ul.nav {
+        margin: 0;
+        
+    }
+
+    input.form-control{
+        width: 100%;
+    }
+}
+
+
+a.active {
+    background-color: black;
+    color: #0dbe98;
+}
+/* MAIN BODY */
+
+
+

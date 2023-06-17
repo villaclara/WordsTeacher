@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 var builder = WebApplication.CreateBuilder(args);
 
 
-string connection = builder.Configuration.GetConnectionString("DefaultConnection");
+string connection = builder.Configuration.GetConnectionString("DefaultConnection")!;
 
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection));
 
