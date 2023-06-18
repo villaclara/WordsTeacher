@@ -69,15 +69,24 @@
 
 
 
-<div>
-	<h3> Words </h3>
+<div class="container">
+	<div>
+		<h3> Words </h3>
+	</div>
 	@{
-		@if(Model.Words.Count() > 0)
+		@if (Model.Words.Count() > 0)
 		{
-			foreach(var word in Model.Words)
+			<div class="row">
+				@foreach (var word in Model.Words)
 				{
-					<p> @word.Definition - @word.Meaning </p>
+					<div class="col-lg-4 col-md-4 col-6">
+						<p>
+							<button type="button">Del</button>
+							@word.Definition - @word.Meaning
+						</p>
+					</div>
 				}
+			</div>
 		}
 	}
 </div>

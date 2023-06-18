@@ -40,6 +40,11 @@ Viewport is the browser window size. 1vw = 1% of viewport width. If the viewport
     
 }
 
+body{
+    display: flex;
+    flex-direction: column;
+}
+
 /*                */
 /*                */
 /* NAVIGATION BAR */
@@ -146,6 +151,10 @@ a.active {
         padding-top: 5vw;
         text-align: center;
     }
+
+    div.words{
+        height: auto;
+    }
 }
 
 
@@ -193,3 +202,34 @@ div.addwordsection{
     padding-bottom: 10px;
     border-bottom: 1px solid;
 }
+
+
+
+
+
+footer.border-top.footer.text-muted{
+    padding-top: 1px;
+    position: relative;
+    height: auto;
+}
+
+
+
+div.container{
+    height:auto;
+    padding-bottom: 1px;
+    overflow: auto;
+}
+
+div.words {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    height: 20px;
+}
+
+.words div{
+    width: 100px;
+    padding: 3px 10px;
+}
+
