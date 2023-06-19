@@ -48,7 +48,7 @@ body{
 /*                */
 /*                */
 /* NAVIGATION BAR */
-li.nav-item.last {
+a.nav-link.last {
     border-right: none;
 }
 
@@ -69,7 +69,7 @@ ul.nav {
 
 
 a.nav-link {
-    font-size: 20px;
+    font-size: 18px;
     color: black;
     border-right: 1px solid;
     text-shadow: 1px 0 0 black;
@@ -126,6 +126,7 @@ a.active {
 @media (max-width: 991.98px) {
     ul.nav {
         margin: 0;
+        font-size: 10px;
     }
 
     input.form-control {
@@ -209,15 +210,15 @@ div.addwordsection{
 
 footer.border-top.footer.text-muted{
     padding-top: 1px;
-    position: relative;
+    position: fixed;
     height: auto;
+    background: #0dbe98;
 }
 
 
 
 div.container{
     height:auto;
-    padding-bottom: 1px;
     overflow: auto;
 }
 
@@ -233,3 +234,12 @@ div.words {
     padding: 3px 10px;
 }
 
+
+div.container_main{
+    padding-bottom: 50px;
+}
+
+
+main.pb-3.cont-main{
+    padding-bottom: 50px;
+}
