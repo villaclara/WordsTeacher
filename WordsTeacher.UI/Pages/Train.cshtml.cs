@@ -31,22 +31,36 @@ namespace WordsTeacher.UI.Pages
             _words = new List<Word>();
         }
 
-        public void OnGet(bool result)
+        public void OnGet(int result, string translated)
         {
 			_words = _ctx.Words.Where(x => x.NickName == HttpContext.Request.Cookies["username"]);
             var rnd = new Random(Guid.NewGuid().GetHashCode());
             _wordIndex = rnd.Next(0, _words.Count());
             var arr = _words.ToArray();
             DisplayedWord = arr[_wordIndex].Meaning;
-            
-            if (result == true)
+            TranslatedWord = translated;
+
+            if (translated != null && result != 0)
             {
-                CheckingResult = "true";
+                if (translated.ToLower() == arr[result].Definition.ToLower())
+                {
+                    CheckingResult = "true";
+
+                }
+                else
+                {
+                    CheckingResult = "false";
+                }
+
             }
-            else 
-            { 
-                CheckingResult = "false";  
-            }
+            //if (result == true )
+            //{
+            //    CheckingResult = "true";
+            //}
+            //else 
+            //{ 
+            //    CheckingResult = "false";  
+            //}
 
             
 		}
@@ -56,14 +70,14 @@ namespace WordsTeacher.UI.Pages
         {
 			_words = _ctx.Words.Where(x => x.NickName == HttpContext.Request.Cookies["username"]);
             var arr = _words.ToArray();
-            
-            if (TranslatedWord.ToLower() == arr[index].Definition.ToLower())
-            {
-				OnGet(true);
-			}
-            else {
-				OnGet(false); 
-            }
+            OnGet(index, TranslatedWord);
+   //         if (TranslatedWord.ToLower() == arr[index].Definition.ToLower())
+   //         {
+			//	OnGet(true);
+			//}
+   //         else {
+			//	OnGet(false); 
+   //         }
             
             
         }
