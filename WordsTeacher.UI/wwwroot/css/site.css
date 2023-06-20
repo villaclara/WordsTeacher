@@ -28,6 +28,9 @@ Viewport is the browser window size. 1vw = 1% of viewport width. If the viewport
 /* the word displayed in train page */
 .word-from-train {
     font-size: 10vw;
+    height: 100%;
+    margin-bottom: 0;
+
 }
 
 
@@ -130,6 +133,10 @@ a.active {
         font-size: 18px;
         border: 1px groove;
     }
+
+    input.btn.btn-secondary {
+        width: 50%;
+    }
   
 }
 
@@ -174,6 +181,17 @@ a.active {
     p.words {
         font-size: 16px;
         border: 1px groove;
+    }
+
+    input.btn.btn-secondary{
+        width: 50%;
+        
+        margin-top: 4vw;
+    }
+
+    div.col {
+        padding-top: 5vw;
+        text-align: center;
     }
 }
 
@@ -263,5 +281,14 @@ div.word-train{
 p.pclass{
     height: 100%;
     width: 100%;
+    height: 100px;
 }
 
+
+input.form-control.col{
+    width: 100%;
+}
+
+div.train-div-row{
+    border: 1px solid;
+}

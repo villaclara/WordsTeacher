@@ -42,40 +42,45 @@
         <p class="word-from-train">@Model.DisplayedWord.ToUpper() </p>
     </div>
 
-    <div class="word-train">
-        @if (Model.CheckingResult == "true")
-        {
-            <p class="pclass" style="background-color: green"> @Model.TranslatedWord </p>
-        }
-        else
-        {
-            <p style="background-color: red"> @Model.TranslatedWord </p>
-        }
-    </div>
+  
 
 
     <div>
         <form method="post" autocomplete="off">
-            <div>
-                <label> Translation? </label>
-                <input asp-for="TranslatedWord" required onfocus="this.value=''" autofocus />
-                <input type="submit" value="Check?" />
+            <div class="form-group row train-div-row">
+                <label class="col-form-label col-sm-2"> Translation? </label>
+                <div class="col-sm-5">
+                <input class="form-control col" asp-for="TranslatedWord" required onfocus="this.value=''" autofocus />
+                </div>
+                <div class="col">
+                <input class="btn btn-secondary" type="submit" value="Check?" />
+                </div>
                 <input type="hidden" name="index" value="@Model.WordIndex" />
+                
             </div>
         </form>
     </div>   
 
-    <div>
+    @*<div>
         <p id = "resultOfChecking">@Model.CheckingResult</p>
 
-    </div>
+    </div>*@
 
-   
+    <div class="word-train">
+        @if (Model.CheckingResult == "true")
+        {
+            <p class="word-from-train" style="background-color: green"> @Model.TranslatedWord </p>
+        }
+        else
+        {
+            <p class="word-from-train" style="background-color: red"> @Model.TranslatedWord </p>
+        }
+    </div>
 </div>
 
 
         
-<script>
+@*<script>
     const box = document.getElementById("resultOfChecking");
 
     window.addEventListener("load", () => {
@@ -88,4 +93,4 @@
             box.style.backgroundColor = "red";
         }
     });
-</script>
+</script>*@
