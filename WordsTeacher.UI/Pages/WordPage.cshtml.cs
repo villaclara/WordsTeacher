@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WordsTeacher.Application;
@@ -7,7 +8,8 @@ using WordsTeacher.Domain;
 
 namespace WordsTeacher.UI.Pages
 {
-    public class WordPageModel : PageModel
+	[Authorize]
+	public class WordPageModel : PageModel
     {
         private ApplicationContext _ctx;
 
@@ -28,6 +30,7 @@ namespace WordsTeacher.UI.Pages
             Words = new GetWords(_ctx).Do(HttpContext.Request.Cookies["username"]!);
         }
 
+        // default post with method=post button=submit
         public async Task<IActionResult> OnPostAsync()
         {
             await new CreateWord(_ctx).Do(new Word()
@@ -40,5 +43,13 @@ namespace WordsTeacher.UI.Pages
 
             return RedirectToPage("WordPage");
         }
+
+        // asp-page-handler is used in form with 'delete' value
+        public async Task<IActionResult> OnPostDeleteAsync(string word, string meaning)
+        {
+            var nick = HttpContext.Request.Cookies["username"];
+            await new DeleteWord(_ctx).DoAsync(word, meaning, nick!);
+            return RedirectToPage("WordPage");
+		}
     }
 }

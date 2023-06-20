@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WordsTeacher.DB;
@@ -5,6 +7,7 @@ using WordsTeacher.Domain;
 
 namespace WordsTeacher.UI.Pages
 {
+    [Authorize]
     public class TrainModel : PageModel
     {
         private readonly ApplicationContext _ctx;
@@ -14,9 +17,11 @@ namespace WordsTeacher.UI.Pages
         public string DisplayedWord { get; set; } = "";
 
         [BindProperty]
-        public string Translated { get; set; } = "";
+        public string TranslatedWord { get; set; } = "";
 
         private int _wordIndex = 0;
+
+        public int WordIndex { get => _wordIndex; set => _wordIndex = value; }
 
         public string CheckingResult { get; set; } = "false";
 
@@ -26,30 +31,41 @@ namespace WordsTeacher.UI.Pages
             _words = new List<Word>();
         }
 
-        public void OnGet()
+        public void OnGet(bool result)
         {
-            _words = _ctx.Words.Where(x => x.NickName == HttpContext.Request.Cookies["username"]);
-
+			_words = _ctx.Words.Where(x => x.NickName == HttpContext.Request.Cookies["username"]);
             var rnd = new Random(Guid.NewGuid().GetHashCode());
             _wordIndex = rnd.Next(0, _words.Count());
-
             var arr = _words.ToArray();
-
-            DisplayedWord = arr[_wordIndex].Definition;
-
-            CheckingResult = "false";
-        }
-
-        
-        public void OnPost()
-        {
-            _words = _ctx.Words.Where(x => x.NickName == HttpContext.Request.Cookies["username"]);
-
-            var arr = _words.ToArray();
-            if (Translated.ToLower() == arr[_wordIndex].Meaning.ToLower())
+            DisplayedWord = arr[_wordIndex].Meaning;
+            
+            if (result == true)
             {
                 CheckingResult = "true";
             }
+            else 
+            { 
+                CheckingResult = "false";  
+            }
+
+            
+		}
+
+        
+        public void OnPost(int index)
+        {
+			_words = _ctx.Words.Where(x => x.NickName == HttpContext.Request.Cookies["username"]);
+            var arr = _words.ToArray();
+            
+            if (TranslatedWord.ToLower() == arr[index].Definition.ToLower())
+            {
+				OnGet(true);
+			}
+            else {
+				OnGet(false); 
+            }
+            
+            
         }
     }
 }

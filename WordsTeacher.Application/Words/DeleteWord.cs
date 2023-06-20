@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WordsTeacher.DB;
+using WordsTeacher.Domain;
 
 namespace WordsTeacher.Application.Words
 {
@@ -17,9 +18,19 @@ namespace WordsTeacher.Application.Words
 		}
 
 
-		public void Do(string word, string nick)
+		public async Task DoAsync(string word, string meaning, string nick)
 		{
-			// to do deletion word. maybe with other parameters
+			try
+			{
+
+				_context.Remove(_context.Words.Single(w => w.Definition == word && w.NickName == nick));
+				await _context.SaveChangesAsync();
+			}
+			catch (Exception ex)
+			{
+                await Console.Out.WriteLineAsync(ex.Message);
+            }
+				
 		}
 	}
 }

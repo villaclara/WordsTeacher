@@ -41,9 +41,17 @@ Viewport is the browser window size. 1vw = 1% of viewport width. If the viewport
 }
 
 body{
-    display: flex;
-    flex-direction: column;
+    padding-bottom: 40px;
 }
+
+
+footer.border-top.footer.text-muted {
+    position: fixed;
+    background: #0dbe98;
+    padding-top: 1px;
+    height: auto;
+}
+
 
 /*                */
 /*                */
@@ -117,6 +125,12 @@ a.active {
         padding-top: 1vw;
         margin-left: 5vw;
     }
+
+    p.words {
+        font-size: 18px;
+        border: 1px groove;
+    }
+  
 }
 
 
@@ -156,6 +170,11 @@ a.active {
     div.words{
         height: auto;
     }
+
+    p.words {
+        font-size: 16px;
+        border: 1px groove;
+    }
 }
 
 
@@ -167,7 +186,7 @@ a.active {
 /*               */
 /* log in button */
 input.btn.btn-primary {
-    background-color: #0dbe98;
+    background-color: #97edd0;
     color: black;
     font-size: 20px;
     border: 1px solid;
@@ -189,13 +208,15 @@ label.col-form-label.col-sm-2{
     font-size: 20px;
 }
 
-
+/* ADD NEW WORD and WORDS headings*/
 h2.heading2{
-    text-shadow: 1px 1px 2px yellow;
+    text-shadow: 1px 1px 2px grey;
 }
 
 input[type=text]:focus {
-    border: 1px solid #555;
+    border: 1px solid #0dbe98;
+    outline: none;
+    box-shadow: 2px 2px 2px 1px #0dbe98;
 }
 
 div.addwordsection{
@@ -205,41 +226,35 @@ div.addwordsection{
 }
 
 
+/* DELETE BUTTON */
+button.btn.btn-outline-danger.btn-sm {
+    color: white;
+    background-color: #eea7a7;
+    border: 1px solid red;
+}
+
+button.btn.btn-outline-danger.btn-sm:hover {
+    background-color: white;
+    color: red;
+    box-shadow: 2px 2px 2px 1px black;
+}
 
 
-
-footer.border-top.footer.text-muted{
-    padding-top: 1px;
-    position: fixed;
-    height: auto;
-    background: #0dbe98;
+/* EVERY WORDS LIST */
+span.word-span{
+    margin-left: 1vw;
 }
 
 
 
-div.container{
-    height:auto;
-    overflow: auto;
+/*              */
+/*              */
+/*              */
+/* TRAIN PAGE   */
+div.word-train{
+    margin: 3vw 0 3vw 0;
+    border: 1px solid;
+    text-align: center;
+    background-color: #daef9b;
 }
 
-div.words {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    height: 20px;
-}
-
-.words div{
-    width: 100px;
-    padding: 3px 10px;
-}
-
-
-div.container_main{
-    padding-bottom: 50px;
-}
-
-
-main.pb-3.cont-main{
-    padding-bottom: 50px;
-}

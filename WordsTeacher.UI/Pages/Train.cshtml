@@ -37,17 +37,41 @@
 }
 
 
-<div>
-    <p class="word-from-train"> Word - @Model.DisplayedWord </p>
-    <form method="post">
-        <p>
-            <label> Translation? </label>
-            <input asp-for="Translated" />
-        </p>
-        <p>
-            <input type="submit" value="Check?" />
-        </p>
-    </form>
-        
-    <p>@Model.CheckingResult</p>
+<div class="container">
+    <div class="word-train">
+        <p class="word-from-train">@Model.DisplayedWord.ToUpper() </p>
+    </div>
+
+    <div>
+        <form method="post">
+            <div>
+                <label> Translation? </label>
+                <input asp-for="TranslatedWord" required onfocus="this.value=''" autofocus/>
+                <input type="submit" value="Check?" />
+                <input type="hidden" name="index" value="@Model.WordIndex" />
+            </div>
+        </form>
+    </div>   
+
+    <div>
+        <p id = "resultOfChecking">@Model.CheckingResult</p>
+
+    </div>
 </div>
+
+
+        
+<script>
+    const box = document.getElementById("resultOfChecking");
+
+    window.addEventListener("load", () => {
+        if (@Model.CheckingResult == "true")
+        {
+            box.style.backgroundColor = "green"; // IT WORKS
+        }
+        else
+        {
+            box.style.backgroundColor = "red";
+        }
+    });
+</script>
