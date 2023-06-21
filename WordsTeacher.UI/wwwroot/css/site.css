@@ -138,6 +138,13 @@ a.active {
         height: 100%;
         margin-bottom: 0;
     }
+
+    div.word-train {
+        margin: 3vw 0 3vw 0;
+        border: 1px solid;
+        text-align: center;
+        background-color: #daef9b;
+    }
   
 }
 
@@ -202,6 +209,13 @@ a.active {
         vertical-align: middle;
         margin: auto;
         padding-top: 15vw;
+    }
+
+    div.word-train {
+        margin: 5vw 0 3vw 0;
+        border: 1px solid;
+        text-align: center;
+        background-color: #daef9b;
     }
 }
 
@@ -279,12 +293,7 @@ span.word-span{
 /*              */
 /*              */
 /* TRAIN PAGE   */
-div.word-train{
-    margin: 3vw 0 3vw 0;
-    border: 1px solid;
-    text-align: center;
-    background-color: #daef9b;
-}
+
 
 
 
@@ -298,7 +307,3 @@ p.pclass{
 input.form-control.col{
     width: 100%;
 }
-
-/*div.train-div-row{
-    border: 1px solid;
-}*/

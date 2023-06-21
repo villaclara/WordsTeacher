@@ -1,72 +1,67 @@
-﻿@* index page used to be LOGIN PAGE 
+﻿@* index page used to be LOGIN PAGE
 
-    First when loading you need to login then you are redirected to words page 
+    First when loading you need to login then you are redirected to words page
     where all words will be displayed and there would be possible to add new one
 *@
 
 @page
 @model IndexModel
 @{
-    ViewData["Title"] = "Log Bruh";
-            //Layout = "Shared/_Layout.cshtml";
+	ViewData["Title"] = "Log Bruh";
+	//Layout = "Shared/_Layout.cshtml";
 }
 @section nav_section{
 
-<header>
-    <div class="container-fluid navi">
-        <nav class="navbar">
-            <ul class="nav">
+	<header>
+		<div class="container-fluid navi">
+			<nav class="navbar">
+				<ul class="nav">
+					<li class="nav-item">
+						<a class="nav-link" asp-area="" asp-page="/WordPage">Words</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" asp-area="" asp-page="/Train">Train</a>
+					</li>
 
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-page="/WordPage">Words</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-page="/Train">Train</a>
-                </li>
+					@if (User.Identity is null || !User.Identity.IsAuthenticated)
+					{
+						<li class="nav-item">
+							<a class="nav-link active last" asp-area="" asp-page="/Index">Login</a>
+						</li>
+					}
+					else
+					{
+						<li class="nav-item">
+							<a class="nav-link active last" asp-area="" asp-page="/Index">Logout (@User.Identity.Name)</a>
+						</li>
+					}
+				</ul>
+			</nav>
+		</div>
 
-                @if (User.Identity is null || !User.Identity.IsAuthenticated)
-                {
-                    <li class="nav-item">
-                        <a class="nav-link active last" asp-area="" asp-page="/Index">Login</a>
-                    </li>
-                }
-                else
-                {
-                    <li class="nav-item">
-                        <a class="nav-link active last" asp-area="" asp-page="/Index">Logout (@User.Identity.Name)</a>
-                    </li>
-                }
-            </ul>
-        </nav>
-    </div>
-
-</header>
+	</header>
 
 }
 
 
 @if (User.Identity is null || !User.Identity.IsAuthenticated)
 {
-    <div class="container">
-        <div>
-            <h1> SIGN UP </h1>
-        </div>
-
-        <p class="no-worries"> [ No worries if you are not registered yet. Just type whatever username you want, press "log in" and you will be automatically registered ]</p>
-        <form method="post">
-            <div class="col-auto">
-            
-                <label class="col-form-label-lg"> Username </label>
-                <input class="form-control" asp-for="Nick" required/>
-                <small>At least 3 letters.</small>
-           
-            </div>
-            <div class="div-login">
-                <input type="submit" class="btn btn-primary" value="log in" />
-            </div>
-            
-        </form>
-    </div>
+	<div class="container">
+		<div>
+			<h1> SIGN UP </h1>
+		</div>
+		<p class="no-worries"> [ No worries if you are not registered yet. Just type whatever username you want, press "log in" and you will be automatically registered ]</p>
+		<form method="post">
+			<div class="col-auto">
+				<label class="col-form-label-lg"> Username </label>
+				<input class="form-control" asp-for="Nick" required />
+				<small>At least 3 letters.</small>
+			</div>
+			<div class="div-login">
+				<input type="submit" class="btn btn-primary" value="log in" />
+			</div>
+		</form>
+	</div>
 }
 
 

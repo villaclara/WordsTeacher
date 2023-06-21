@@ -1,96 +1,73 @@
 ﻿@page
 @model TrainModel
 @{
-    ViewData["Title"] = "Train Bruh";
+	ViewData["Title"] = "Train Bruh";
 }
 
 @section nav_section{
-<header>
-    <div class="container-fluid navi">
-        <nav class="navbar justify-content-center ">
-            <ul class="nav">
+	<header>
+		<div class="container-fluid navi">
+			<nav class="navbar justify-content-center ">
+				<ul class="nav">
 
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-page="/WordPage">Words</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" asp-area="" asp-page="/Train">Train</a>
-                </li>
+					<li class="nav-item">
+						<a class="nav-link" asp-area="" asp-page="/WordPage">Words</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" asp-area="" asp-page="/Train">Train</a>
+					</li>
 
-                @if (User.Identity is null || !User.Identity.IsAuthenticated)
-                {
-                    <li class="nav-item">
-                        <a class="nav-link last" asp-area="" asp-page="/Index">Login</a>
-                    </li>
-                }
-                else
-                {
-                    <li class="nav-item">
-                        <a class="nav-link last" asp-area="" asp-page="/Index">Logout (@User.Identity.Name)</a>
-                    </li>
-                }
-            </ul>
-        </nav>
-    </div>
+					@if (User.Identity is null || !User.Identity.IsAuthenticated)
+					{
+						<li class="nav-item">
+							<a class="nav-link last" asp-area="" asp-page="/Index">Login</a>
+						</li>
+					}
+					else
+					{
+						<li class="nav-item">
+							<a class="nav-link last" asp-area="" asp-page="/Index">Logout (@User.Identity.Name)</a>
+						</li>
+					}
+				</ul>
+			</nav>
+		</div>
 
-</header>
+	</header>
 }
 
-
 <div class="container">
-    <div class="word-train">
-        <p class="word-from-train">@Model.DisplayedWord.ToUpper() </p>
-    </div>
+	<div class="word-train">
+		<p class="word-from-train">@Model.DisplayedWord.ToUpper() </p>
+	</div>
+	<div>
+		<form method="post" autocomplete="off">
+			<div class="form-group row train-div-row">
+				<label class="col-form-label col-sm-2"> Translation? </label>
+				<div class="col-sm-5">
+					<input class="form-control col" asp-for="TranslatedWord" required onfocus="this.value=''" autofocus />
+				</div>
+				<div class="col">
+					<input class="btn btn-secondary" type="submit" value="Check?" />
+				</div>
+				<input type="hidden" name="index" value="@Model.WordIndex" />
+				<input type="hidden" name="previous" value="@Model.DisplayedWord"/>
 
-  
-
-
-    <div>
-        <form method="post" autocomplete="off">
-            <div class="form-group row train-div-row">
-                <label class="col-form-label col-sm-2"> Translation? </label>
-                <div class="col-sm-5">
-                <input class="form-control col" asp-for="TranslatedWord" required onfocus="this.value=''" autofocus />
-                </div>
-                <div class="col">
-                <input class="btn btn-secondary" type="submit" value="Check?" />
-                </div>
-                <input type="hidden" name="index" value="@Model.WordIndex" />
-                
-            </div>
-        </form>
-    </div>   
-
-    @*<div>
-        <p id = "resultOfChecking">@Model.CheckingResult</p>
-
-    </div>*@
-
-    <div class="word-train">
-        @if (Model.CheckingResult == "true")
-        {
-            <p class="word-from-train" style="background-color: green"> @Model.TranslatedWord </p>
-        }
-        else
-        {
-            <p class="word-from-train" style="background-color: red"> @Model.TranslatedWord </p>
-        }
-    </div>
+			</div>
+		</form>
+	</div>
+	<div class="word-train">
+		@if (Model.CheckingResult == "true")
+		{
+			<p class="word-from-train" style="background-color: green"> @Model.TranslatedWord - @Model.PreviousWord </p>
+		}
+		else if (Model.CheckingResult == "false")
+		{
+			<p class="word-from-train" style="background-color: red"> @Model.TranslatedWord  - @Model.PreviousWord </p>
+		}
+		else
+		{
+			<p class="word-from-train" style="background-color: lightgrey"> @Model.CheckingResult </p>
+		}
+	</div>
 </div>
-
-
-        
-@*<script>
-    const box = document.getElementById("resultOfChecking");
-
-    window.addEventListener("load", () => {
-        if (@Model.CheckingResult == "true")
-        {
-            box.style.backgroundColor = "green"; // IT WORKS
-        }
-        else
-        {
-            box.style.backgroundColor = "red";
-        }
-    });
-</script>*@

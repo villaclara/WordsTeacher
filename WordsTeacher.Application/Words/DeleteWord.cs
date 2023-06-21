@@ -17,12 +17,10 @@ namespace WordsTeacher.Application.Words
 			_context = context;
 		}
 
-
 		public async Task DoAsync(string word, string meaning, string nick)
 		{
 			try
 			{
-
 				_context.Remove(_context.Words.Single(w => w.Definition == word && w.NickName == nick));
 				await _context.SaveChangesAsync();
 			}

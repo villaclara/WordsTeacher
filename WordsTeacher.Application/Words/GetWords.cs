@@ -23,11 +23,7 @@ namespace WordsTeacher.Application.Words
 			{
 				return Enumerable.Empty<Word>();
 			}
-
 			return _ctx.Words.ToList().Where(x => x.NickName == username) ?? Enumerable.Empty<Word>();
-
-
-
 		}
     }
 }

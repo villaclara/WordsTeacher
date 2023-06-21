@@ -13,8 +13,6 @@ namespace WordsTeacher.UI.Pages
     {
         private ApplicationContext _ctx;
 
-        
-
         public WordPageModel(ApplicationContext ctx)
         {
             _ctx = ctx;
@@ -36,9 +34,10 @@ namespace WordsTeacher.UI.Pages
             await new CreateWord(_ctx).Do(new Word()
             {
                 NickName = HttpContext.Request.Cookies["username"]!,
-                //Id = _ctx.Words.Count() + 1,
-                Definition = OneWord.Definition,
-                Meaning = OneWord.Meaning
+                
+                //Id = _ctx.Words.Count() + 1, - automatically increments in the db
+                Definition = OneWord.Definition.Trim(),
+                Meaning = OneWord.Meaning.Trim()
             });
 
             return RedirectToPage("WordPage");

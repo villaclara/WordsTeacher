@@ -19,6 +19,8 @@ namespace WordsTeacher.UI.Pages
         [BindProperty]
         public string TranslatedWord { get; set; } = "";
 
+        public string PreviousWord { get; set; } = "";
+
         private int _wordIndex = 0;
 
         public int WordIndex { get => _wordIndex; set => _wordIndex = value; }
@@ -31,55 +33,41 @@ namespace WordsTeacher.UI.Pages
             _words = new List<Word>();
         }
 
-        public void OnGet(int result, string translated)
+        public void OnGet(int result, string translated, string previous)
         {
 			_words = _ctx.Words.Where(x => x.NickName == HttpContext.Request.Cookies["username"]);
-            var rnd = new Random(Guid.NewGuid().GetHashCode());
-            _wordIndex = rnd.Next(0, _words.Count());
-            var arr = _words.ToArray();
-            DisplayedWord = arr[_wordIndex].Meaning;
-            TranslatedWord = translated;
-
-            if (translated != null && result != 0)
+            if (_words.Any())
             {
-                if (translated.ToLower() == arr[result].Definition.ToLower())
-                {
-                    CheckingResult = "true";
 
-                }
-                else
-                {
-                    CheckingResult = "false";
-                }
+                var rnd = new Random(Guid.NewGuid().GetHashCode());
+                _wordIndex = rnd.Next(0, _words.Count());
 
+                var wordsAsArray = _words.ToArray();
+
+                DisplayedWord = wordsAsArray[_wordIndex].Meaning;
+
+                if (translated != null && result >= 0)
+                {
+                    TranslatedWord = translated;
+                    PreviousWord = previous;
+
+                    if (translated.Trim().ToLower() == wordsAsArray[result].Definition.ToLower().Trim())
+                        CheckingResult = "true";
+                    else
+                        CheckingResult = "false";
+                }
             }
-            //if (result == true )
-            //{
-            //    CheckingResult = "true";
-            //}
-            //else 
-            //{ 
-            //    CheckingResult = "false";  
-            //}
 
-            
+            else
+                CheckingResult = "NO WORDS";
+
 		}
-
         
-        public void OnPost(int index)
+        public void OnPost(int index, string previous)
         {
-			_words = _ctx.Words.Where(x => x.NickName == HttpContext.Request.Cookies["username"]);
-            var arr = _words.ToArray();
-            OnGet(index, TranslatedWord);
-   //         if (TranslatedWord.ToLower() == arr[index].Definition.ToLower())
-   //         {
-			//	OnGet(true);
-			//}
-   //         else {
-			//	OnGet(false); 
-   //         }
-            
-            
+
+            // calling OnGet with parameters from form
+            OnGet(index, TranslatedWord, previous);
         }
     }
 }
