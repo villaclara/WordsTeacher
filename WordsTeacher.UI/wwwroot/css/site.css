@@ -26,12 +26,7 @@ Extra           >=1200px    .col-xl-
 /*
 Viewport is the browser window size. 1vw = 1% of viewport width. If the viewport is 50cm wide, 1vw is 0.5cm. */
 /* the word displayed in train page */
-.word-from-train {
-    font-size: 10vw;
-    height: 100%;
-    margin-bottom: 0;
 
-}
 
 
 /* all elements */
@@ -137,6 +132,12 @@ a.active {
     input.btn.btn-secondary {
         width: 50%;
     }
+
+    .word-from-train {
+        font-size: 10vw;
+        height: 100%;
+        margin-bottom: 0;
+    }
   
 }
 
@@ -192,6 +193,15 @@ a.active {
     div.col {
         padding-top: 5vw;
         text-align: center;
+    }
+
+    p.word-from-train {
+        height: 40vw;
+        font-size: 30px;
+        text-align: center;
+        vertical-align: middle;
+        margin: auto;
+        padding-top: 15vw;
     }
 }
 
@@ -289,6 +299,6 @@ input.form-control.col{
     width: 100%;
 }
 
-div.train-div-row{
+/*div.train-div-row{
     border: 1px solid;
-}
+}*/
