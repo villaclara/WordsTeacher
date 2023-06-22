@@ -18,7 +18,7 @@ namespace WordsTeacher.DB.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Definition = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Meaning = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<long>(type: "bigint", nullable: false)
+                    NickName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -11,8 +11,8 @@ using WordsTeacher.DB;
 namespace WordsTeacher.DB.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230612171703_newmigr")]
-    partial class newmigr
+    [Migration("20230621131103_migr1")]
+    partial class migr1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

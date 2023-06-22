@@ -5,7 +5,7 @@
 namespace WordsTeacher.DB.Migrations
 {
     /// <inheritdoc />
-    public partial class UserNowStringInsteadOfInt : Migration
+    public partial class migr1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -23,11 +23,11 @@ namespace WordsTeacher.DB.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<long>(
-                name: "NickName",
+                name: "UserId",
                 table: "Words",
                 type: "bigint",
                 nullable: false,
-                oldClrType: typeof(string),
+                oldClrType: typeof(long),
                 oldType: "nvarchar(max)");
         }
     }

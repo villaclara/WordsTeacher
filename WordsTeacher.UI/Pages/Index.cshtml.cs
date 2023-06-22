@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
+using System.Net.Mail;
 using System.Security.Claims;
 using WordsTeacher.DB;
 
@@ -31,7 +32,7 @@ namespace WordsTeacher.UI.Pages
 
 
         
-        public async void OnGet()
+        public async Task OnGet()
         {
 
             //if (HttpContext.Request.Cookies.ContainsKey("username"))
@@ -42,15 +43,28 @@ namespace WordsTeacher.UI.Pages
             //    HttpContext.Response.Redirect("WordPage");
             //}
 
-            if (User.Identity!.IsAuthenticated)
-            {
-                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-                HttpContext.Response.Cookies.Delete("username");
-                HttpContext.Response.Redirect("Index");
-            }
-          
+
+            //if (User.Identity!.IsAuthenticated)
+            //{
+            //    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            //    HttpContext.Response.Cookies.Delete("username");
+            //    HttpContext.Response.Redirect("Index");
+            //}
+
+
+            if (HttpContext.Request.Cookies.ContainsKey("username"))
+			{
+				Nick = HttpContext.Request.Cookies["username"]!;
+				var claims = new List<Claim> { new Claim(ClaimTypes.Name, Nick) };
+				ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Cookies");
+				await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+				HttpContext.Response.Cookies.Append("username", Nick);
+				HttpContext.Response.Redirect("WordPage");
+			}
+
 
 		}
+
 
         public async Task<IActionResult> OnPost()
         {
