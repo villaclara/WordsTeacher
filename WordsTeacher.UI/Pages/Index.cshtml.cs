@@ -53,17 +53,21 @@ namespace WordsTeacher.UI.Pages
 
 
             if (HttpContext.Request.Cookies.ContainsKey("username"))
-			{
-				Nick = HttpContext.Request.Cookies["username"]!;
-				var claims = new List<Claim> { new Claim(ClaimTypes.Name, Nick) };
-				ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Cookies");
-				await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-				HttpContext.Response.Cookies.Append("username", Nick);
-				HttpContext.Response.Redirect("WordPage");
-			}
+            {
+                //Nick = HttpContext.Request.Cookies["username"]!;
+                var claims = new List<Claim> { new Claim(ClaimTypes.Name, Nick) };
+                ClaimsIdentity claimsIdentity = new(claims, "Cookies");
+                await HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity));
+                HttpContext.Response.Redirect("WordPage");
+            }
 
+            //         if (User.Identity is not null && User.Identity.IsAuthenticated)
+            //         {
+            //	HttpContext.Response.Redirect("WordPage");
 
-		}
+            //}
+
+        }
 
 
         public async Task<IActionResult> OnPost()
