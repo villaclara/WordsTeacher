@@ -25,16 +25,20 @@ namespace WordsTeacher.UI.Pages
 
         public void OnGet()
         {
-            Words = new GetWords(_ctx).Do(HttpContext.Request.Cookies["username"]!);
-        }
+            if (HttpContext.Request.Cookies.ContainsKey("username"))
+			{
+				Words = new GetWords(_ctx).Do(HttpContext.Request.Cookies["username"]!);
+			}
+		}
 
         // default post with method=post button=submit
         public async Task<IActionResult> OnPostAsync()
         {
             await new CreateWord(_ctx).Do(new Word()
             {
-                NickName = HttpContext.Request.Cookies["username"]!,
-                
+            NickName = HttpContext.Request.Cookies["username"]!,
+
+
                 //Id = _ctx.Words.Count() + 1, - automatically increments in the db
                 Definition = OneWord.Definition.Trim(),
                 Meaning = OneWord.Meaning.Trim()
