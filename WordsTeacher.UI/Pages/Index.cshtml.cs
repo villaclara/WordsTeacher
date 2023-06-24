@@ -25,8 +25,6 @@ namespace WordsTeacher.UI.Pages
         [Required]
         public string Nick { get; set; } = null!;
 
-        public bool IsLoggedIn { get; set; } = false;
-
         public string? MessageDisplayWhenNoUserNameSet { get; set; } = "";
         
         public IndexModel(ILogger<IndexModel> logger, 
@@ -81,23 +79,26 @@ namespace WordsTeacher.UI.Pages
 
             if (!_ctx.Users.Any())
             {
-                _ctx.Users.Add(user);
-				await _ctx.SaveChangesAsync();
+                await _userManager.CreateAsync(user, " ");
 			}
 
             if (!_ctx.Users.Where(u => u.UserName == Nick).Any())
             {
-                _ctx.Users.Add(user);
-				await _ctx.SaveChangesAsync();
+                var us = await _userManager.CreateAsync(user, "111");
 			}
 
-            
 
 
-            await _signInManager.SignInAsync(user, false);
-            HttpContext.Response.Cookies.Append("username", Nick);
-            HttpContext.Response.Redirect("WordPage");
+
+            var result = await _signInManager.PasswordSignInAsync(Nick, "111", false, false);
+
+            if (result.Succeeded)
+            {
+                HttpContext.Response.Cookies.Append("username", Nick);
+                HttpContext.Response.Redirect("WordPage");
+            }
+
+            else HttpContext.Response.Redirect("Index");
 		}
-
 	}
 }

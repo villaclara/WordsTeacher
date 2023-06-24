@@ -17,7 +17,16 @@ builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServe
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+{
+	options.Password.RequiredUniqueChars = 0;
+	options.Password.RequireNonAlphanumeric = false;
+	options.Password.RequireDigit = false;
+	options.Password.RequireNonAlphanumeric = false;
+	options.Password.RequireUppercase = false;
+	options.Password.RequiredLength = 0;
+	options.Password.RequireLowercase = false;
+})
 	.AddEntityFrameworkStores<ApplicationContext>();
 
 builder.Services.ConfigureApplicationCookie(options =>
