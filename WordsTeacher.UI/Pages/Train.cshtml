@@ -17,16 +17,16 @@
 						<a class="nav-link active" asp-area="" asp-page="/Train">Train</a>
 					</li>
 
-					@if (User.Identity is null || !User.Identity.IsAuthenticated)
+					@if (User.Identity is not null && User.Identity.IsAuthenticated)
 					{
 						<li class="nav-item">
-							<a class="nav-link last" asp-area="" asp-page="/Index">Login</a>
+							<a class="nav-link last" asp-area="" asp-page="/Logout">Logout (@User.Identity.Name)</a>
 						</li>
 					}
 					else
 					{
 						<li class="nav-item">
-							<a class="nav-link last" asp-area="" asp-page="/Logout">Logout (@User.Identity.Name)</a>
+							<a class="nav-link last" asp-area="" asp-page="/Index">Login</a>
 						</li>
 					}
 				</ul>

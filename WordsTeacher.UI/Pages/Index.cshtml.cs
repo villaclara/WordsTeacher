@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
@@ -11,90 +12,68 @@ namespace WordsTeacher.UI.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+		private readonly ILogger<IndexModel> _logger;
 
         private readonly ApplicationContext _ctx;
+
+        private readonly UserManager<IdentityUser> _userManager;
+
+        private readonly SignInManager<IdentityUser> _signInManager;
 
         [BindProperty]
         [DataType(DataType.Text)]
         [Required]
         public string Nick { get; set; } = null!;
 
-        public bool IsLoggedIn { get; set; } = false;
-
         public string? MessageDisplayWhenNoUserNameSet { get; set; } = "";
-        public IndexModel(ILogger<IndexModel> logger, ApplicationContext ctx)
+        
+        public IndexModel(ILogger<IndexModel> logger, 
+            ApplicationContext ctx, 
+            UserManager<IdentityUser> userManager, 
+            SignInManager<IdentityUser> signInManager)
         {
             _logger = logger;
             _ctx = ctx;
-         
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
 
         
         public async Task OnGet()
         {
-
-            //if (HttpContext.Request.Cookies.ContainsKey("username"))
-            //{
-            //    Nick = HttpContext.Request.Cookies["username"];
-            //    IsLoggedIn = true;
-            //    //return RedirectToPage("WordPage");
-            //    HttpContext.Response.Redirect("WordPage");
-            //}
-
-
-            //if (User.Identity!.IsAuthenticated)
-            //{
-            //    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            //    HttpContext.Response.Cookies.Delete("username");
-            //    HttpContext.Response.Redirect("Index");
-            //}
-
-
-            if (HttpContext.Request.Cookies.ContainsKey("username"))
+            if (_signInManager.IsSignedIn(User))
             {
-                //Nick = HttpContext.Request.Cookies["username"]!;
-                var claims = new List<Claim> { new Claim(ClaimTypes.Name, Nick) };
-                ClaimsIdentity claimsIdentity = new(claims, "Cookies");
-                await HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity));
+                HttpContext.Response.Redirect("WordPage");
+            }
+        }
+
+
+        public async Task OnPost()
+        {
+ 
+            var user = new IdentityUser(Nick);
+
+            if (!_ctx.Users.Any())
+            {
+                await _userManager.CreateAsync(user, " ");
+			}
+
+            if (!_ctx.Users.Where(u => u.UserName == Nick).Any())
+            {
+                var us = await _userManager.CreateAsync(user, "111");
+			}
+
+            // default password is 111 for every user just to let them logins by only username
+            var result = await _signInManager.PasswordSignInAsync(Nick, "111", true, false);
+
+            if (result.Succeeded)
+            {
+                //HttpContext.Response.Cookies.Append("username", Nick);
                 HttpContext.Response.Redirect("WordPage");
             }
 
-            //         if (User.Identity is not null && User.Identity.IsAuthenticated)
-            //         {
-            //	HttpContext.Response.Redirect("WordPage");
-
-            //}
-
-        }
-
-
-        public async Task<IActionResult> OnPost()
-        {
-
-            //      HttpContext.Response.Cookies.Append("username", Nick);
-            //      IsLoggedIn = true;
-            ////      if (HttpContext.Request.Cookies["username"] != Nick)
-            ////          HttpContext.Response.Cookies.Append("username", Nick);
-
-            //return RedirectToPage("WordPage");
-
-            if (ModelState.IsValid)
-            {
-                var claims = new List<Claim> { new Claim(ClaimTypes.Name, Nick) };
-                ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Cookies");
-
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-                HttpContext.Response.Cookies.Append("username", Nick);
-                return RedirectToPage("WordPage");
-            }
-
-            else
-            {
-                return RedirectToPage("Index");
-            }
-        }
-
-    }
+            else HttpContext.Response.Redirect("Index");
+		}
+	}
 }
