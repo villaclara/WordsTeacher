@@ -55,7 +55,7 @@ namespace WordsTeacher.UI.Pages
         // asp-page-handler is used in form with 'delete' value
         public async Task<IActionResult> OnPostDeleteAsync(string word, string meaning)
         {
-            var nick = HttpContext.Request.Cookies["username"];
+            var nick = User.Identity!.Name;
             await new DeleteWord(_ctx).DoAsync(word, meaning, nick!);
             return RedirectToPage("WordPage");
 		}
