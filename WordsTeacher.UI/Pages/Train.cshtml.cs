@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WordsTeacher.DB;
@@ -11,8 +12,8 @@ namespace WordsTeacher.UI.Pages
     public class TrainModel : PageModel
     {
         private readonly ApplicationContext _ctx;
-
-        private IEnumerable<Word> _words;
+		private readonly SignInManager<IdentityUser> _signInManager;
+		private IEnumerable<Word> _words;
 
         public string DisplayedWord { get; set; } = "";
 
@@ -27,15 +28,17 @@ namespace WordsTeacher.UI.Pages
 
         public string CheckingResult { get; set; } = "false";
 
-        public TrainModel(ApplicationContext ctx)
+        public TrainModel(ApplicationContext ctx, SignInManager<IdentityUser> signInManager)
         {
             _ctx = ctx;
             _words = new List<Word>();
+            _signInManager = signInManager;
         }
 
         public void OnGet(int result, string translated, string previous)
         {
-			_words = _ctx.Words.Where(x => x.NickName == HttpContext.Request.Cookies["username"]);
+			var name = _signInManager.Context.User.Identity!.Name!;
+			_words = _ctx.Words.Where(x => x.NickName == name);
             if (_words.Any())
             {
 

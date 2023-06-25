@@ -1,4 +1,6 @@
 ﻿@page
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> SignInManager; 
 @model WordPageModel
 @{
 	ViewData["Title"] = "Words Bruh";
@@ -17,10 +19,11 @@
 						<a class="nav-link" asp-area="" asp-page="/Train">Train</a>
 					</li>
 
-					@if (User.Identity is not null && User.Identity.IsAuthenticated)
+					@*@if (User.Identity is not null && User.Identity.IsAuthenticated)*@
+					@if (SignInManager.IsSignedIn(User))
 					{
 						<li class="nav-item">
-							<a class="nav-link last" asp-area="" asp-page="/Logout">Logout (@User.Identity.Name)</a>
+							<a class="nav-link last" asp-area="" asp-page="/Logout">Logout (@User.Identity?.Name)</a>
 						</li>
 					}
 					else

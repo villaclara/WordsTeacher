@@ -12,13 +12,13 @@ namespace WordsTeacher.UI.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+		private readonly ILogger<IndexModel> _logger;
 
         private readonly ApplicationContext _ctx;
 
-        private UserManager<IdentityUser> _userManager;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        private SignInManager<IdentityUser> _signInManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
         [BindProperty]
         [DataType(DataType.Text)]
@@ -42,39 +42,16 @@ namespace WordsTeacher.UI.Pages
         
         public async Task OnGet()
         {
-            //if (User.Identity is not null && User.Identity.IsAuthenticated)
-            //{
-            //    if (HttpContext.Request.Cookies.ContainsKey("username"))
-            //    {
-            //        Nick = HttpContext.Request.Cookies["username"]!;
-            //    }
-            //    HttpContext.Response.Redirect("WordPage");
-            //}
-
             if (_signInManager.IsSignedIn(User))
             {
                 HttpContext.Response.Redirect("WordPage");
             }
-
         }
 
 
         public async Task OnPost()
         {
-
-            //         var claims = new List<Claim>()
-            //         {
-            //             new Claim(ClaimTypes.Name, Nick)
-            //         };
-            //         var identity = new ClaimsIdentity(claims, "Cookies");
-            //         HttpContext.Response.Cookies.Append("username", Nick);
-            //         await HttpContext.SignInAsync(new ClaimsPrincipal(identity), new AuthenticationProperties
-            //         {
-            //             IsPersistent = true,
-            //             RedirectUri = "WordPage",
-            //         });
-            //HttpContext.Response.Redirect("WordPage");  
-
+ 
             var user = new IdentityUser(Nick);
 
             if (!_ctx.Users.Any())
@@ -87,14 +64,12 @@ namespace WordsTeacher.UI.Pages
                 var us = await _userManager.CreateAsync(user, "111");
 			}
 
-
-
-
-            var result = await _signInManager.PasswordSignInAsync(Nick, "111", false, false);
+            // default password is 111 for every user just to let them logins by only username
+            var result = await _signInManager.PasswordSignInAsync(Nick, "111", true, false);
 
             if (result.Succeeded)
             {
-                HttpContext.Response.Cookies.Append("username", Nick);
+                //HttpContext.Response.Cookies.Append("username", Nick);
                 HttpContext.Response.Redirect("WordPage");
             }
 

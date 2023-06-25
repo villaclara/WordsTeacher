@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WordsTeacher.Application;
@@ -8,14 +9,17 @@ using WordsTeacher.Domain;
 
 namespace WordsTeacher.UI.Pages
 {
-	[Authorize]
+    [Authorize]
 	public class WordPageModel : PageModel
     {
-        private ApplicationContext _ctx;
+        private readonly ApplicationContext _ctx;
 
-        public WordPageModel(ApplicationContext ctx)
+		private readonly SignInManager<IdentityUser> _signInManager;
+
+		public WordPageModel(ApplicationContext ctx, SignInManager<IdentityUser> signInManager)
         {
             _ctx = ctx;
+            _signInManager = signInManager;
         }
 
         [BindProperty]
@@ -25,10 +29,13 @@ namespace WordsTeacher.UI.Pages
 
         public void OnGet()
         {
-            if (HttpContext.Request.Cookies.ContainsKey("username"))
-			{
-				Words = new GetWords(_ctx).Do(HttpContext.Request.Cookies["username"]!);
-			}
+            
+            var name = _signInManager.Context.User.Identity?.Name;
+
+            if (name is not null)
+                Words = new GetWords(_ctx).Do(name);
+
+            else HttpContext.Response.Redirect("Index");
 		}
 
         // default post with method=post button=submit
@@ -36,13 +43,11 @@ namespace WordsTeacher.UI.Pages
         {
             await new CreateWord(_ctx).Do(new Word()
             {
-            NickName = HttpContext.Request.Cookies["username"]!,
-
-
                 //Id = _ctx.Words.Count() + 1, - automatically increments in the db
                 Definition = OneWord.Definition.Trim(),
-                Meaning = OneWord.Meaning.Trim()
-            });
+                Meaning = OneWord.Meaning.Trim(),
+				NickName = _signInManager.Context.User.Identity!.Name!
+			});
 
             return RedirectToPage("WordPage");
         }
