@@ -21,6 +21,10 @@ namespace WordsTeacher.Application.Users
 		{
 			var us = _ctx.Users.Where(u => u.UserName == user).First();
 			_ctx.Users.Remove(us);
+
+			var wrds = _ctx.Words.Where(wrd => wrd.NickName == user);
+			_ctx.Words.RemoveRange(wrds);
+
 			await _ctx.SaveChangesAsync();
 		}
 	}
