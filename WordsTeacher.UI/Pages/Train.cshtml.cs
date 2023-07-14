@@ -23,8 +23,9 @@ namespace WordsTeacher.UI.Pages
         public string PreviousWord { get; set; } = "";
 
         private int _wordIndex = 0;
-
         public int WordIndex { get => _wordIndex; set => _wordIndex = value; }
+
+        public int PrevIndex { get; set; } = 0;
 
         public string CheckingResult { get; set; } = "false";
 
@@ -35,42 +36,48 @@ namespace WordsTeacher.UI.Pages
             _signInManager = signInManager;
         }
 
-        public void OnGet(int result, string translated, string previous)
+        public void OnGet(int result, string translated, string previous, int prevIndex)
         {
 			var name = _signInManager.Context.User.Identity!.Name!;
 			_words = _ctx.Words.Where(x => x.NickName == name);
-            if (_words.Any())
+            if (_words.Count() > 1)
             {
+                // to prevent the same word be displayed in series
 
                 var rnd = new Random(Guid.NewGuid().GetHashCode());
                 _wordIndex = rnd.Next(0, _words.Count());
+                while (prevIndex == _wordIndex)
+                {
+                    _wordIndex = rnd.Next(0, _words.Count());
+                }
+                PrevIndex = _wordIndex;
 
                 var wordsAsArray = _words.ToArray();
-
                 DisplayedWord = wordsAsArray[_wordIndex].Meaning;
-
+                //
                 if (translated != null && result >= 0)
                 {
                     TranslatedWord = translated;
                     PreviousWord = previous;
-
-                    if (translated.Trim().ToLower() == wordsAsArray[result].Definition.ToLower().Trim())
-                        CheckingResult = "true";
-                    else
-                        CheckingResult = "false";
+					CheckingResult = CompareWordAndMeaning(word: translated, def: wordsAsArray[result].Definition);
                 }
             }
 
             else
-                CheckingResult = "NO WORDS";
+                CheckingResult = "NOT ENOUGH WORDS";
 
 		}
         
-        public void OnPost(int index, string previous)
+        public void OnPost(int index, string previous, int prevIndex)
         {
-
             // calling OnGet with parameters from form
-            OnGet(index, TranslatedWord, previous);
+            OnGet(index, TranslatedWord, previous, prevIndex);
         }
+
+
+
+        private static string CompareWordAndMeaning(string word, string def) =>
+            word.Trim().ToLower() == def.Trim().ToLower() ? "true" : "false";
+
     }
 }
