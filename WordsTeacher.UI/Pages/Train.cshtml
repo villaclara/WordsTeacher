@@ -50,8 +50,10 @@
 				<div class="col">
 					<input class="btn btn-secondary" type="submit" value="Check?" />
 				</div>
+				<div class="col">
+					<input class="btn btn-outline-secondary" type="button" value="Could not remember"/>
+				</div>
 				<input type="hidden" name="index" value="@Model.CurrentWordIndex" />
-				<input type="hidden" name="prevIndex" value="@Model.PrevWordIndex"/>
 
 			</div>
 		</form>
@@ -59,11 +61,11 @@
 	<div class="word-train">
 		@if (Model.CheckingResult == "true")
 		{
-			<p class="word-from-train" style="background-color: green"> @Model.DefinitionPreviousWord - @Model.TranslatedWordFromUser </p>
+			<p class="word-from-train" style="background-color: green"> @Model.UA_DefinitionPreviousWord - @Model.TranslatedWordFromUser </p>
 		}
 		else if (Model.CheckingResult == "false")
 		{
-			<p class="word-from-train" style="background-color: red"> @Model.DefinitionPreviousWord  - @Model.MeaningPreviousWord </p>
+			<p class="word-from-train" style="background-color: red"> @Model.UA_DefinitionPreviousWord  - @Model.EN_MeaningPreviousWord </p>
 		}
 		else
 		{

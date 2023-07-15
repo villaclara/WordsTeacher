@@ -20,13 +20,11 @@ namespace WordsTeacher.UI.Pages
         [BindProperty]
         public string TranslatedWordFromUser { get; set; } = "";
         
-        public string MeaningPreviousWord { get; set; } = "";
-        public string DefinitionPreviousWord { get; set; } = "";
+        public string EN_MeaningPreviousWord { get; set; } = "";
+        public string UA_DefinitionPreviousWord { get; set; } = "";
 
-        private int _wordIndex = 0;
-        public int CurrentWordIndex { get => _wordIndex; set => _wordIndex = value; }
 
-        public int PrevWordIndex { get; set; } = 0;
+        public int CurrentWordIndex { get; set; }
 
         public string CheckingResult { get; set; } = "false";
 
@@ -37,30 +35,36 @@ namespace WordsTeacher.UI.Pages
             _signInManager = signInManager;
         }
 
-        public void OnGet(int index, string translatedfromUser, int previousIndex)
+        public void OnGet(int prevWordIndex, string translatedfromUser)
         {
 			var name = _signInManager.Context.User.Identity!.Name!;
 			_words = _ctx.Words.Where(x => x.NickName == name);
+            
+            
             if (_words.Count() > 1)
             {
                 // to prevent the same word be displayed in series
-
                 var rnd = new Random(Guid.NewGuid().GetHashCode());
-                _wordIndex = rnd.Next(0, _words.Count());
-                while (previousIndex == _wordIndex)
+                CurrentWordIndex = rnd.Next(0, _words.Count());
+                while (prevWordIndex == CurrentWordIndex)
                 {
-                    _wordIndex = rnd.Next(0, _words.Count());
+                    CurrentWordIndex = rnd.Next(0, _words.Count());
                 }
-                PrevWordIndex = _wordIndex;
+
+
                 var wordsAsArray = _words.ToArray();
-                DisplayedWordToTranslate = wordsAsArray[_wordIndex].Meaning;
-                MeaningPreviousWord = wordsAsArray[previousIndex].Definition;
-                //
-                if (translatedfromUser != null && index >= 0)
+                DisplayedWordToTranslate = wordsAsArray[CurrentWordIndex].Meaning;
+                
+
+                // checking result from previous translation
+                if (translatedfromUser != null && prevWordIndex >= 0)
                 {
+                    // these assignments are needed to display the values in the html page
                     TranslatedWordFromUser = translatedfromUser;
-                    DefinitionPreviousWord = wordsAsArray[previousIndex].Meaning;
-					CheckingResult = CompareWordAndMeaning(word: translatedfromUser, def: wordsAsArray[index].Definition);
+                    UA_DefinitionPreviousWord = wordsAsArray[prevWordIndex].Meaning;
+					EN_MeaningPreviousWord = wordsAsArray[prevWordIndex].Definition;
+
+					CheckingResult = CompareWordAndMeaning(word: TranslatedWordFromUser, def: EN_MeaningPreviousWord);
                 }
             }
 
@@ -69,10 +73,10 @@ namespace WordsTeacher.UI.Pages
 
 		}
         
-        public void OnPost(int index, int prevIndex)
+        public void OnPost(int index)
         {
             // calling OnGet with parameters from form
-            OnGet(index, TranslatedWordFromUser, prevIndex);
+            OnGet(index, TranslatedWordFromUser);
         }
 
 
