@@ -15,17 +15,18 @@ namespace WordsTeacher.UI.Pages
 		private readonly SignInManager<IdentityUser> _signInManager;
 		private IEnumerable<Word> _words;
 
-        public string DisplayedWord { get; set; } = "";
+        public string DisplayedWordToTranslate { get; set; } = "";
 
         [BindProperty]
-        public string TranslatedWord { get; set; } = "";
-
-        public string PreviousWord { get; set; } = "";
+        public string TranslatedWordFromUser { get; set; } = "";
+        
+        public string MeaningPreviousWord { get; set; } = "";
+        public string DefinitionPreviousWord { get; set; } = "";
 
         private int _wordIndex = 0;
-        public int WordIndex { get => _wordIndex; set => _wordIndex = value; }
+        public int CurrentWordIndex { get => _wordIndex; set => _wordIndex = value; }
 
-        public int PrevIndex { get; set; } = 0;
+        public int PrevWordIndex { get; set; } = 0;
 
         public string CheckingResult { get; set; } = "false";
 
@@ -36,7 +37,7 @@ namespace WordsTeacher.UI.Pages
             _signInManager = signInManager;
         }
 
-        public void OnGet(int result, string translated, string previous, int prevIndex)
+        public void OnGet(int index, string translatedfromUser, int previousIndex)
         {
 			var name = _signInManager.Context.User.Identity!.Name!;
 			_words = _ctx.Words.Where(x => x.NickName == name);
@@ -46,20 +47,20 @@ namespace WordsTeacher.UI.Pages
 
                 var rnd = new Random(Guid.NewGuid().GetHashCode());
                 _wordIndex = rnd.Next(0, _words.Count());
-                while (prevIndex == _wordIndex)
+                while (previousIndex == _wordIndex)
                 {
                     _wordIndex = rnd.Next(0, _words.Count());
                 }
-                PrevIndex = _wordIndex;
-
+                PrevWordIndex = _wordIndex;
                 var wordsAsArray = _words.ToArray();
-                DisplayedWord = wordsAsArray[_wordIndex].Meaning;
+                DisplayedWordToTranslate = wordsAsArray[_wordIndex].Meaning;
+                MeaningPreviousWord = wordsAsArray[previousIndex].Definition;
                 //
-                if (translated != null && result >= 0)
+                if (translatedfromUser != null && index >= 0)
                 {
-                    TranslatedWord = translated;
-                    PreviousWord = previous;
-					CheckingResult = CompareWordAndMeaning(word: translated, def: wordsAsArray[result].Definition);
+                    TranslatedWordFromUser = translatedfromUser;
+                    DefinitionPreviousWord = wordsAsArray[previousIndex].Meaning;
+					CheckingResult = CompareWordAndMeaning(word: translatedfromUser, def: wordsAsArray[index].Definition);
                 }
             }
 
@@ -68,10 +69,10 @@ namespace WordsTeacher.UI.Pages
 
 		}
         
-        public void OnPost(int index, string previous, int prevIndex)
+        public void OnPost(int index, int prevIndex)
         {
             // calling OnGet with parameters from form
-            OnGet(index, TranslatedWord, previous, prevIndex);
+            OnGet(index, TranslatedWordFromUser, prevIndex);
         }
 
 
