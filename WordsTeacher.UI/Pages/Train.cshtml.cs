@@ -26,7 +26,7 @@ namespace WordsTeacher.UI.Pages
 
         public int CurrentWordIndex { get; set; }
 
-        public string CheckingResult { get; set; } = "false";
+        public string? CheckingResult { get; set; } = "false";
 
         public TrainModel(ApplicationContext ctx, SignInManager<IdentityUser> signInManager)
         {
@@ -54,10 +54,10 @@ namespace WordsTeacher.UI.Pages
 
                 var wordsAsArray = _words.ToArray();
                 DisplayedWordToTranslate = wordsAsArray[CurrentWordIndex].Meaning;
-                
+				
 
-                // checking result from previous translation
-                if (translatedfromUser != null && prevWordIndex >= 0)
+				// checking result from previous translation
+				if (translatedfromUser != null && translatedfromUser != "cnr" && prevWordIndex >= 0)
                 {
                     // these assignments are needed to display the values in the html page
                     TranslatedWordFromUser = translatedfromUser;
@@ -66,7 +66,16 @@ namespace WordsTeacher.UI.Pages
 
 					CheckingResult = CompareWordAndMeaning(word: TranslatedWordFromUser, def: EN_MeaningPreviousWord);
                 }
-            }
+
+                if (translatedfromUser == "cnr")
+                {
+					UA_DefinitionPreviousWord = wordsAsArray[prevWordIndex].Meaning;
+					EN_MeaningPreviousWord = wordsAsArray[prevWordIndex].Definition;
+                    CheckingResult = UA_DefinitionPreviousWord + " - " + EN_MeaningPreviousWord;
+				}
+
+                
+			}
 
             else
                 CheckingResult = "NOT ENOUGH WORDS";
@@ -80,8 +89,14 @@ namespace WordsTeacher.UI.Pages
         }
 
 
+        public void OnPostNotRemember(int index)
+        {
+            OnGet(index, "cnr");
+        }
 
-        private static string CompareWordAndMeaning(string word, string def) =>
+
+
+		private static string CompareWordAndMeaning(string word, string def) =>
             word.Trim().ToLower() == def.Trim().ToLower() ? "true" : "false";
 
     }
