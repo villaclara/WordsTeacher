@@ -133,8 +133,8 @@ a.active {
         width: 50%;
     }
 
-    .word-from-train {
-        font-size: 10vw;
+    p.word-from-train {
+        font-size: 9vw;
         height: 100%;
         margin-bottom: 0;
     }
@@ -143,9 +143,13 @@ a.active {
         margin: 3vw 0 3vw 0;
         border: 1px solid;
         text-align: center;
-        background-color: #daef9b;
+        background-color: #daef9b;        
     }
-  
+
+    div.col.cnr {
+        width: 100%;
+        text-align: center;
+    }
 }
 
 
@@ -307,3 +311,10 @@ p.pclass{
 input.form-control.col{
     width: 100%;
 }
+
+input.col.cnr-input{
+    background-color: #ed6e6e;
+    color: whitesmoke;
+}
+
+
