@@ -12,9 +12,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 string connection = builder.Configuration.GetConnectionString("DefaultConnection")!;
 
+// Add services to the container.
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection));
 
-// Add services to the container.
 builder.Services.AddRazorPages();
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
@@ -24,7 +24,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 	options.Password.RequireDigit = false;
 	options.Password.RequireNonAlphanumeric = false;
 	options.Password.RequireUppercase = false;
-	options.Password.RequiredLength = 0;
+	options.Password.RequiredLength = 4;
 	options.Password.RequireLowercase = false;
 })
 	.AddEntityFrameworkStores<ApplicationContext>();

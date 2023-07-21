@@ -19,14 +19,12 @@ namespace WordsTeacher.UI.Pages
 		private readonly SignInManager<IdentityUser> _signInManager;
 
 		[BindProperty]
-		[DataType(DataType.Text)]
-		[Required]
 		public string Nick { get; set; } = null!;
 
 		[BindProperty]
 		public string Password { get; set; } = null!;
 
-		public string? MessageDisplayWhenNoUserNameSet { get; set; } = "";
+		public string? ErrorLoginMessage { get; set; } = "";
 
 		public LoginModel(
 			ApplicationContext ctx,
@@ -40,9 +38,10 @@ namespace WordsTeacher.UI.Pages
 
 
 
-		public void OnGet()
+		public void OnGet(bool LoggedError)
 		{
-			
+			if (LoggedError)
+				ErrorLoginMessage = "Password is incorrect or Username is already in use by someone another.";
 		}
 
 
@@ -51,17 +50,18 @@ namespace WordsTeacher.UI.Pages
 
 			var user = new IdentityUser(Nick);
 
+			// if no users
 			if (!_ctx.Users.Any())
 			{
 				await _userManager.CreateAsync(user, Password);
 			}
 
+			// if no user is found with that nickname
 			if (!_ctx.Users.Where(u => u.UserName == Nick).Any())
 			{
-				var us = await _userManager.CreateAsync(user, Password);
+				await _userManager.CreateAsync(user, Password);
 			}
 
-			// default password is 111 for every user just to let them logins by only username
 			var result = await _signInManager.PasswordSignInAsync(Nick, Password, true, false);
 
 			if (result.Succeeded)
@@ -70,12 +70,11 @@ namespace WordsTeacher.UI.Pages
 				HttpContext.Response.Redirect("WordPage");
 			}
 
-			else HttpContext.Response.Redirect("Index");
+			else
+			{
+				OnGet(true);
+			}
 		}
 
-		public async Task OnPostRegister()
-		{
-
-		}
 	}
 }

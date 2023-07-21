@@ -55,15 +55,19 @@
 		<form method="post">
 			<p class="no-worries"> [ Log in to existing account or create a new one. <br> 
 				If the username is already in use please use another. ]</p>
+			
 			<div class="col-auto">
 				<label class="col-form-label-lg"> Username </label>
-				<input class="form-control" asp-for="Nick" required />
+					<input class="form-control" asp-for="Nick" required />
 				<small>At least 3 letters.</small>
 			</div>
 			<div class="col-auto">
 				<label class="col-form-label-lg">Password</label>
 					<input class="form-control" type="password" asp-for="Password" required />
 				<small> at least 4 symbols </small>
+			</div>
+			<div>
+				<p class="error-login-message">@Model.ErrorLoginMessage</p>
 			</div>
 			<div class="div-login">
 				<input type="submit" class="btn btn-primary" asp-page-handler="Login" value="Sign up" />
