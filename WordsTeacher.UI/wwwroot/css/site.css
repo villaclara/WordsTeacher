@@ -242,11 +242,16 @@ input.btn.btn-primary:hover{
     color: white;
 }
 
+p.error-login-message{
+    font-size: 18px;
+    color: red;
+}
+
 
 /*               */
 /*               */
 /*  WORDPAGE.CSHTML */
-label.col-form-label.col-sm-2{
+label.col-form-label.col-sm-2 {
     font-size: 20px;
 }
 

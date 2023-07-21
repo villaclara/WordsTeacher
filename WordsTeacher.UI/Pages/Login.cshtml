@@ -1,0 +1,101 @@
+﻿@page
+@model WordsTeacher.UI.Pages.LoginModel
+
+﻿@*  LOGIN PAGE
+
+    First when loading you need to login then you are redirected to words page
+    where all words will be displayed and there would be possible to add new one
+*@
+
+@{
+	ViewData["Title"] = "Log Bruh";
+	//Layout = "Shared/_Layout.cshtml";
+}
+@section nav_section{
+
+	<header>
+		<div class="container-fluid navi">
+			<nav class="navbar">
+				<ul class="nav">
+					<li class="nav-item">
+						<a class="nav-link" asp-area="" asp-page="/WordPage">Words</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" asp-area="" asp-page="/Train">Train</a>
+					</li>
+
+					@if (User.Identity is not null && User.Identity.IsAuthenticated)
+					{
+						<li class="nav-item">
+							<a class="nav-link active last" asp-area="" asp-page="/Logout">Logout (@User.Identity.Name)</a>
+							
+						</li>
+					}
+					else
+					{
+						<li class="nav-item">
+							<a class="nav-link active last" asp-area="" asp-page="/Index">Login</a>
+						</li>
+					}
+				</ul>
+			</nav>
+		</div>
+
+	</header>
+
+}
+
+<div class="container">
+@if (User.Identity is null || !User.Identity.IsAuthenticated)
+{
+	<div class="container">
+		<div>
+			<h1> SIGN UP </h1>
+		</div>
+		<form method="post">
+			<p class="no-worries"> [ Log in to existing account or create a new one. <br> 
+				If the username is already in use please use another. ]</p>
+			
+			<div class="col-auto">
+				<label class="col-form-label-lg"> Username </label>
+					<input class="form-control" asp-for="Nick" required />
+				<small>At least 3 letters.</small>
+			</div>
+			<div class="col-auto">
+				<label class="col-form-label-lg">Password</label>
+					<input class="form-control" type="password" asp-for="Password" required />
+				<small> at least 4 symbols </small>
+			</div>
+			<div>
+				<p class="error-login-message">@Model.ErrorLoginMessage</p>
+			</div>
+			<div class="div-login">
+				<input type="submit" class="btn btn-primary" asp-page-handler="Login" value="Sign up" />
+			</div>
+		</form>
+	</div>
+}
+</div>
+
+@*<div class="container">
+	<div>
+		<h1> Register </h1>
+	</div>
+
+	<form method="post">
+		<div class="col-auto">
+			<label class="col-form-label-lg">Username </label>
+			<input class="form-control" asp-for="Nick" required/>
+			<small>at least 3 letters</small>
+		</div>
+		<div class="col-auto">
+			<label class="col-form-label-lg">Password</label>
+			<input class="form-control" asp-for="Password" required/>
+			<small> at least 4 symbols </small>
+		</div>
+		<div class="div-login">
+			<input type="submit" class="btn btn-primary" asp-page-handler="Register" value="Register"/>
+		</div>
+	</form>
+
+</div>*@

@@ -1,13 +1,12 @@
-﻿@* index page used to be LOGIN PAGE
-
-    First when loading you need to login then you are redirected to words page
-    where all words will be displayed and there would be possible to add new one
+﻿@* index page just redirects the user to the WordPage
+	because previously there was an Login page and it is moved to separate Page
+	Index is starting point 
 *@
 
 @page
 @model IndexModel
 @{
-	ViewData["Title"] = "Log Bruh";
+	ViewData["Title"] = "Index";
 	//Layout = "Shared/_Layout.cshtml";
 }
 @section nav_section{
@@ -45,25 +44,7 @@
 }
 
 
-@if (User.Identity is null || !User.Identity.IsAuthenticated)
-{
-	<div class="container">
-		<div>
-			<h1> SIGN UP </h1>
-		</div>
-		<p class="no-worries"> [ No worries if you are not registered yet. Just type whatever username you want, press "log in" and you will be automatically registered ]</p>
-		<form method="post">
-			<div class="col-auto">
-				<label class="col-form-label-lg"> Username </label>
-				<input class="form-control" asp-for="Nick" required />
-				<small>At least 3 letters.</small>
-			</div>
-			<div class="div-login">
-				<input type="submit" class="btn btn-primary" value="log in" />
-			</div>
-		</form>
-	</div>
-}
+<h2> index </h2>
 
 
 
