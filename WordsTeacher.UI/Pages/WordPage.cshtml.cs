@@ -9,7 +9,6 @@ using WordsTeacher.Domain;
 
 namespace WordsTeacher.UI.Pages
 {
-    [Authorize]
 	public class WordPageModel : PageModel
     {
         private readonly ApplicationContext _ctx;
@@ -35,7 +34,7 @@ namespace WordsTeacher.UI.Pages
             if (name is not null)
                 Words = new GetWords(_ctx).Do(name);
 
-            else HttpContext.Response.Redirect("Index");
+            else HttpContext.Response.Redirect("Login");
 		}
 
         // default post with method=post button=submit
