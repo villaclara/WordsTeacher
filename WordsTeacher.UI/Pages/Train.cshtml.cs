@@ -40,7 +40,8 @@ namespace WordsTeacher.UI.Pages
 			var name = _signInManager.Context.User.Identity!.Name!;
 			_words = _ctx.Words.Where(x => x.NickName == name);
             
-            
+            // should be >1 because of random generated number next
+            // if it was >=1 then the infinity loop will occur
             if (_words.Count() > 1)
             {
                 // to prevent the same word be displayed in series
@@ -82,7 +83,7 @@ namespace WordsTeacher.UI.Pages
 
 		}
         
-        public void OnPost(int index)
+        public void OnPostCheck(int index)
         {
             // calling OnGet with parameters from form
             OnGet(index, TranslatedWordFromUser);

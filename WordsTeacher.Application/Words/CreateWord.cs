@@ -18,11 +18,23 @@ namespace WordsTeacher.Application.Words
             _context = context;
         }
 
-        public async Task Do (Word wordmodel)
+        public async Task<bool> Do (Word wordmodel)
         {
-            _context.Words.Add(wordmodel);
+            //var alreadyExistsWord = _context.Words.First(delegate (Word word)
+            //{
+            //    return word.Definition == wordmodel.Definition;
+            //});
 
-            await _context.SaveChangesAsync();
+            var alreadyExistsWord = _context.Words.FirstOrDefault(w =>  w.Definition == wordmodel.Definition && w.NickName == wordmodel.NickName);
+
+            if (alreadyExistsWord == null)
+            {
+                _context.Words.Add(wordmodel);
+				await _context.SaveChangesAsync();
+				return true;
+            }
+
+            return false;
         }
     }
 }

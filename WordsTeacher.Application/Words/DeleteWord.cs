@@ -21,7 +21,7 @@ namespace WordsTeacher.Application.Words
 		{
 			try
 			{
-				_context.Remove(_context.Words.Single(w => w.Definition == word && w.NickName == nick));
+				_context.Remove(_context.Words.Single(w => w.Definition == word && w.Meaning == meaning && w.NickName == nick));
 				await _context.SaveChangesAsync();
 			}
 			catch (Exception ex)

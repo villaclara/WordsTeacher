@@ -51,32 +51,31 @@
 					<input class="form-control col" asp-for="TranslatedWordFromUser" required onfocus="this.value=''" autofocus />
 				</div>
 				<div class="col">
-					<input class="btn btn-secondary" type="submit" value="Check?" />
+					<input class="btn btn-secondary" type="submit" value="Check?" asp-page-handler="Check" />
 				</div>
 				<input type="hidden" name="index" value="@Model.CurrentWordIndex" />
-
 			</div>
 		</form>
 		<form method="post">
 			<div class="col cnr">
-				<input class="col cnr-input btn" type="submit" value="Could not remember" asp-page-handler="notRemember"/>
+				<input class="col cnr-input btn" type="submit" value="Could not remember" asp-page-handler="notRemember" />
 			</div>
-		<input type="hidden" name="index" value="@Model.CurrentWordIndex" />
-	</form>
-</div>
-	
-<div class="word-train">
-	@if (Model.CheckingResult == "true")
-	{
-		<p class="word-from-train" style="background-color: green"> @Model.UA_DefinitionPreviousWord - @Model.TranslatedWordFromUser </p>
-	}
-	else if (Model.CheckingResult == "false")
-	{
-		<p class="word-from-train" style="background-color: red"> @Model.UA_DefinitionPreviousWord  - @Model.EN_MeaningPreviousWord </p>
-	}
-	else
-	{
-		<p class="word-from-train" style="background-color: lightgrey"> @Model.CheckingResult </p>
-	}
+			<input type="hidden" name="index" value="@Model.CurrentWordIndex" />
+		</form>
+	</div>
+
+	<div class="word-train">
+		@if (Model.CheckingResult == "true")
+		{
+			<p class="word-from-train" style="background-color: green"> @Model.UA_DefinitionPreviousWord - @Model.TranslatedWordFromUser </p>
+		}
+		else if (Model.CheckingResult == "false")
+		{
+			<p class="word-from-train" style="background-color: red"> @Model.UA_DefinitionPreviousWord  - @Model.EN_MeaningPreviousWord </p>
+		}
+		else
+		{
+			<p class="word-from-train" style="background-color: lightgrey"> @Model.CheckingResult </p>
+		}
 	</div>
 </div>
