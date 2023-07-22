@@ -1,0 +1,50 @@
+﻿@page
+@model WordsTeacher.UI.Pages.AccountModel
+@{
+}
+
+@section nav_section{
+	<header>
+		<div class="container-fluid navi">
+			<nav class="navbar justify-content-center ">
+				<ul class="nav">
+
+					<li class="nav-item">
+						<a class="nav-link" asp-area="" asp-page="/WordPage">Words</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" asp-area="" asp-page="/Train">Train</a>
+					</li>
+
+					@if (User.Identity is not null && User.Identity.IsAuthenticated)
+					{
+						<li class="nav-item">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+								@*<img class="img-nav" src="images/user_icn.png" />*@
+							Dropdown	
+							</a>
+							
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="#">Action</a>
+								<a class="dropdown-item" href="#">Another action</a>
+								<a class="dropdown-item" href="#">Something else here</a>
+							</div>
+						</li>
+					}
+					else
+					{
+						<li class="nav-item">
+							<a class="nav-link last" asp-area="" asp-page="/Index">Login</a>
+						</li>
+					}
+				</ul>
+			</nav>
+		</div>
+
+	</header>
+}
+
+<div class="container">
+	<p> @Model.User.Identity?.Name </p>
+</div>

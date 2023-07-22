@@ -56,6 +56,7 @@ footer.border-top.footer.text-muted {
 /* NAVIGATION BAR */
 a.nav-link.last {
     border-right: none;
+    float: right;
 }
 
 div.navi {
@@ -90,6 +91,14 @@ a.active {
     color: #0dbe98;
 }
 
+img.img-nav {
+    float: right;
+    height: 38px;
+    border: 0 0 0 0;
+    margin: 1px 0 1px 10px;
+    padding: 0;
+    background-color: #0dbe98;
+}
 
 
 
