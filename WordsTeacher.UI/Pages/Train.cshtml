@@ -36,38 +36,47 @@
 	</header>
 }
 
+
+
+
 <div class="container">
 	<div class="word-train">
-		<p class="word-from-train">@Model.DisplayedWord.ToUpper() </p>
+		<p class="word-from-train">@Model.DisplayedWordToTranslate </p>
 	</div>
 	<div>
 		<form method="post" autocomplete="off">
 			<div class="form-group row train-div-row">
 				<label class="col-form-label col-sm-2"> Translation? </label>
 				<div class="col-sm-5">
-					<input class="form-control col" asp-for="TranslatedWord" required onfocus="this.value=''" autofocus />
+					<input class="form-control col" asp-for="TranslatedWordFromUser" required onfocus="this.value=''" autofocus />
 				</div>
 				<div class="col">
 					<input class="btn btn-secondary" type="submit" value="Check?" />
 				</div>
-				<input type="hidden" name="index" value="@Model.WordIndex" />
-				<input type="hidden" name="previous" value="@Model.DisplayedWord"/>
+				<input type="hidden" name="index" value="@Model.CurrentWordIndex" />
 
 			</div>
 		</form>
-	</div>
-	<div class="word-train">
-		@if (Model.CheckingResult == "true")
-		{
-			<p class="word-from-train" style="background-color: green"> @Model.TranslatedWord - @Model.PreviousWord </p>
-		}
-		else if (Model.CheckingResult == "false")
-		{
-			<p class="word-from-train" style="background-color: red"> @Model.TranslatedWord  - @Model.PreviousWord </p>
-		}
-		else
-		{
-			<p class="word-from-train" style="background-color: lightgrey"> @Model.CheckingResult </p>
-		}
+		<form method="post">
+			<div class="col cnr">
+				<input class="col cnr-input btn" type="submit" value="Could not remember" asp-page-handler="notRemember"/>
+			</div>
+		<input type="hidden" name="index" value="@Model.CurrentWordIndex" />
+	</form>
+</div>
+	
+<div class="word-train">
+	@if (Model.CheckingResult == "true")
+	{
+		<p class="word-from-train" style="background-color: green"> @Model.UA_DefinitionPreviousWord - @Model.TranslatedWordFromUser </p>
+	}
+	else if (Model.CheckingResult == "false")
+	{
+		<p class="word-from-train" style="background-color: red"> @Model.UA_DefinitionPreviousWord  - @Model.EN_MeaningPreviousWord </p>
+	}
+	else
+	{
+		<p class="word-from-train" style="background-color: lightgrey"> @Model.CheckingResult </p>
+	}
 	</div>
 </div>

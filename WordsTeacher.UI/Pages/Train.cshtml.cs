@@ -15,18 +15,18 @@ namespace WordsTeacher.UI.Pages
 		private readonly SignInManager<IdentityUser> _signInManager;
 		private IEnumerable<Word> _words;
 
-        public string DisplayedWord { get; set; } = "";
+        public string DisplayedWordToTranslate { get; set; } = "";
 
         [BindProperty]
-        public string TranslatedWord { get; set; } = "";
+        public string TranslatedWordFromUser { get; set; } = "";
+        
+        public string EN_MeaningPreviousWord { get; set; } = "";
+        public string UA_DefinitionPreviousWord { get; set; } = "";
 
-        public string PreviousWord { get; set; } = "";
 
-        private int _wordIndex = 0;
+        public int CurrentWordIndex { get; set; }
 
-        public int WordIndex { get => _wordIndex; set => _wordIndex = value; }
-
-        public string CheckingResult { get; set; } = "false";
+        public string? CheckingResult { get; set; } = "false";
 
         public TrainModel(ApplicationContext ctx, SignInManager<IdentityUser> signInManager)
         {
@@ -35,42 +35,69 @@ namespace WordsTeacher.UI.Pages
             _signInManager = signInManager;
         }
 
-        public void OnGet(int result, string translated, string previous)
+        public void OnGet(int prevWordIndex, string translatedfromUser)
         {
 			var name = _signInManager.Context.User.Identity!.Name!;
 			_words = _ctx.Words.Where(x => x.NickName == name);
-            if (_words.Any())
+            
+            
+            if (_words.Count() > 1)
             {
-
+                // to prevent the same word be displayed in series
                 var rnd = new Random(Guid.NewGuid().GetHashCode());
-                _wordIndex = rnd.Next(0, _words.Count());
+                CurrentWordIndex = rnd.Next(0, _words.Count());
+                while (prevWordIndex == CurrentWordIndex)
+                {
+                    CurrentWordIndex = rnd.Next(0, _words.Count());
+                }
+
 
                 var wordsAsArray = _words.ToArray();
+                DisplayedWordToTranslate = wordsAsArray[CurrentWordIndex].Meaning;
+				
 
-                DisplayedWord = wordsAsArray[_wordIndex].Meaning;
-
-                if (translated != null && result >= 0)
+				// checking result from previous translation
+				if (translatedfromUser != null && translatedfromUser != "cnr" && prevWordIndex >= 0)
                 {
-                    TranslatedWord = translated;
-                    PreviousWord = previous;
+                    // these assignments are needed to display the values in the html page
+                    TranslatedWordFromUser = translatedfromUser;
+                    UA_DefinitionPreviousWord = wordsAsArray[prevWordIndex].Meaning;
+					EN_MeaningPreviousWord = wordsAsArray[prevWordIndex].Definition;
 
-                    if (translated.Trim().ToLower() == wordsAsArray[result].Definition.ToLower().Trim())
-                        CheckingResult = "true";
-                    else
-                        CheckingResult = "false";
+					CheckingResult = CompareWordAndMeaning(word: TranslatedWordFromUser, def: EN_MeaningPreviousWord);
                 }
-            }
+
+                if (translatedfromUser == "cnr")
+                {
+					UA_DefinitionPreviousWord = wordsAsArray[prevWordIndex].Meaning;
+					EN_MeaningPreviousWord = wordsAsArray[prevWordIndex].Definition;
+                    CheckingResult = UA_DefinitionPreviousWord + " - " + EN_MeaningPreviousWord;
+				}
+
+                
+			}
 
             else
-                CheckingResult = "NO WORDS";
+                CheckingResult = "NOT ENOUGH WORDS";
 
 		}
         
-        public void OnPost(int index, string previous)
+        public void OnPost(int index)
         {
-
             // calling OnGet with parameters from form
-            OnGet(index, TranslatedWord, previous);
+            OnGet(index, TranslatedWordFromUser);
         }
+
+
+        public void OnPostNotRemember(int index)
+        {
+            OnGet(index, "cnr");
+        }
+
+
+
+		private static string CompareWordAndMeaning(string word, string def) =>
+            word.Trim().ToLower() == def.Trim().ToLower() ? "true" : "false";
+
     }
 }
