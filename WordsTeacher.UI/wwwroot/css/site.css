@@ -157,6 +157,7 @@ a.active {
         margin: 0 0 0 0;
         width: 150px;
         padding: 0 0 0 0;
+        border-right: 1px solid black;
     }
 
     img.img-nav {
@@ -186,7 +187,50 @@ a.active {
     }
 
 
+    /* ACCOUNT PAGE */
 
+    div#left-sidebar {
+        float: left;
+        width: 200px;
+        border: 1px solid red;
+        background-color: #1aebbf;
+    }
+
+    div#main {
+        margin: 0 0 0 200px;
+        border: 1px solid blue;
+    }
+
+    ul.sidebar-ul {
+        background-color: #1aebbf;
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li.sidebar-li {
+        font-size: 20px;
+        border-top: 1px solid black;
+        width: 200px;
+        height: 50px;
+        padding: 3px 0 3px 0;
+    }
+
+    a.sidebar-a {
+        display: block;
+        text-decoration: none;
+        color: black;
+        padding: 10px 0 0 0;
+        text-shadow: 1px 0 0 black;
+    }
+
+    a.sidebar-a:hover {
+        color: white;
+        background-color: #0dbe98;
+    }
+
+    a#active-sidebar {
+        background-color: #0dbe98;
+    }
 }
 
 
@@ -306,7 +350,7 @@ a.active {
 
 
 /*               */
-/* INDEX.CSHTML  */
+/* LOGIN.CSHTML  */
 /*               */
 /* log in button */
 input.btn.btn-primary {
@@ -400,4 +444,10 @@ input.col.cnr-input{
     color: whitesmoke;
 }
 
+
+
+/*            */
+/*            */
+/*            */
+/* ACCOUNT PAGE */
 

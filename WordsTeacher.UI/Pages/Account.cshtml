@@ -45,5 +45,19 @@
 }
 
 <div class="container">
-	<p> @Model.User.Identity?.Name </p>
+	<div id="left-sidebar"> [to change with color] 
+		<ul class="sidebar-ul">
+			<li class="sidebar-li">
+				<a class="sidebar-a" id="active-sidebar" href="#"> Main </a>
+				</li>
+			<li class="sidebar-li">
+				<a class="sidebar-a" href="#"> Settings </a>
+				</li>
+			<li class="sidebar-li">
+				<a class="sidebar-a" asp-page="/Logout"> Sign out </a>
+			</li>
+		</ul>
+	</div>
+	<div id="main"> Hello, @Model.User.Identity?.Name </div>
+
 </div>
