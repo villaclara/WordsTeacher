@@ -29,7 +29,7 @@ Viewport is the browser window size. 1vw = 1% of viewport width. If the viewport
 
 
 
-/* all elements */
+    /* all elements */
 * {
     margin: 0;
     padding: 0;
@@ -51,9 +51,9 @@ footer.border-top.footer.text-muted {
 }
 
 
-/*                */
-/*                */
-/* NAVIGATION BAR */
+    /*                */
+    /*                */
+    /* NAVIGATION BAR */
 
 
 div.navi {
@@ -61,7 +61,7 @@ div.navi {
 }
 
 
-/* NEW NAVBAR */
+    /* NEW NAVBAR */
 
 
 
@@ -86,9 +86,9 @@ a.active {
 }
 
 
-/*               */
-/*               */
-/* for PC */
+    /*               */
+    /*               */
+    /* for PC        */
 @media (min-width: 992px) {
 
     input.form-control {
@@ -142,7 +142,7 @@ a.active {
         text-align: center;
     }
 
-    /* NEW SECTION NAV BAR */
+        /* NEW SECTION NAV BAR */
 
     ul.navi-ul {
         list-style-type: none;
@@ -170,7 +170,7 @@ a.active {
     li.navi-li.li-last {
         float: right;
         margin: 0 200px 0 0;
-        border-right: none;
+        border-right: 1px solid black;
     }
 
     a.navi-a {
@@ -183,60 +183,90 @@ a.active {
         padding: 5px 1px 0px 0;
         margin: 0 0 0 0;
         height: 45px;
-
     }
 
 
-    /* ACCOUNT PAGE */
+        /* ACCOUNT PAGE */
 
-    div#left-sidebar {
+        /* tab menu left sidebar */
+    div#tab {
+        height: 250px;
         float: left;
         width: 200px;
-        border: 1px solid red;
-        background-color: #1aebbf;
     }
 
-    div#main {
-        margin: 0 0 0 200px;
-        border: 1px solid blue;
-    }
 
+        /* ul of left sidebar */
     ul.sidebar-ul {
-        background-color: #1aebbf;
         list-style-type: none;
-        padding: 0;
+        padding-top: 20px;
     }
 
+        /* li item of left ul sidebar*/
     li.sidebar-li {
         font-size: 20px;
         border-top: 1px solid black;
         width: 200px;
         height: 50px;
-        padding: 3px 0 3px 0;
-    }
-
-    a.sidebar-a {
-        display: block;
-        text-decoration: none;
         color: black;
-        padding: 10px 0 0 0;
         text-shadow: 1px 0 0 black;
     }
 
-    a.sidebar-a:hover {
+    li.sidebar-li.empty {
+        border: none;
+    }
+
+    li.sidebar-li.signout {
+        color: red;
+        text-shadow: 1px 0 0 pink;
+    }
+
+        /* left sidebar link tab */
+    a.sidebar-button {
+        display: block;
+        background-color: inherit;
+        width: 100%;
+        border: none;
+        outline: none;
+        text-align: left;
+        cursor: pointer;
+        transition: 0.3s;
+        font-size: 17px;
+        text-decoration: none;
+        text-shadow: inherit;
+        height: 50px;
+        padding: 10px;
+        color: inherit;
+    }
+
+        /* Change background color of buttons on hover */
+    a.sidebar-button:hover {
         color: white;
         background-color: #0dbe98;
     }
 
-    a#active-sidebar {
+        /* Create an active/current "tab button" class */
+    a.sidebar-button.active {
         background-color: #0dbe98;
+    }
+
+    /* Style the tab content */
+    div.sidebar-content {
+        float: left;
+        padding: 0px 12px;
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        width: 70%;
+        border-left: none;
+        height: 300px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     }
 }
 
 
-/*               */
-/*               */
-/* for phones */
+    /*               */
+    /*               */
+    /* for phones */
 @media (max-width: 991.98px) {
     ul.nav {
         margin: 0;
@@ -303,7 +333,7 @@ a.active {
         background-color: #daef9b;
     }
 
-    /* NEW NAVBAR */
+        /* NEW NAVBAR */
 
     ul.navi-ul {
         list-style-type: none;
@@ -349,10 +379,10 @@ a.active {
 
 
 
-/*               */
-/* LOGIN.CSHTML  */
-/*               */
-/* log in button */
+    /*               */
+    /* LOGIN.CSHTML  */
+    /*               */
+    /* log in button */
 input.btn.btn-primary {
     background-color: #97edd0;
     color: black;
@@ -374,14 +404,14 @@ p.error-login-message{
 }
 
 
-/*               */
-/*               */
-/*  WORDPAGE.CSHTML */
+    /*               */
+    /*               */
+    /*  WORDPAGE.CSHTML */
 label.col-form-label.col-sm-2 {
     font-size: 20px;
 }
 
-/* ADD NEW WORD and WORDS headings*/
+    /* ADD NEW WORD and WORDS headings */
 h2.heading2{
     text-shadow: 1px 1px 2px grey;
 }
@@ -399,7 +429,7 @@ div.addwordsection{
 }
 
 
-/* DELETE BUTTON */
+    /* DELETE BUTTON */
 button.btn.btn-outline-danger.btn-sm {
     color: white;
     background-color: #eea7a7;
@@ -413,17 +443,17 @@ button.btn.btn-outline-danger.btn-sm:hover {
 }
 
 
-/* EVERY WORDS LIST */
+    /* EVERY WORDS LIST */
 span.word-span{
     margin-left: 1vw;
 }
 
 
 
-/*              */
-/*              */
-/*              */
-/* TRAIN PAGE   */
+    /*              */
+    /*              */
+    /*              */
+    /* TRAIN PAGE   */
 
 
 
@@ -446,8 +476,8 @@ input.col.cnr-input{
 
 
 
-/*            */
-/*            */
-/*            */
-/* ACCOUNT PAGE */
+    /*            */
+    /*            */
+    /*            */
+    /* ACCOUNT PAGE */
 

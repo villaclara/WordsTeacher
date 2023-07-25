@@ -44,20 +44,99 @@
 	</header>
 }
 
-<div class="container">
-	<div id="left-sidebar"> [to change with color] 
+
+
+<div>
+	<div id="tab"> 
 		<ul class="sidebar-ul">
 			<li class="sidebar-li">
-				<a class="sidebar-a" id="active-sidebar" href="#"> Main </a>
+					<a href="#" id="active-sidebar" class="sidebar-button" onclick="openSidebarTab (event, 'main')"> Main </a>
 				</li>
 			<li class="sidebar-li">
-				<a class="sidebar-a" href="#"> Settings </a>
+				<a href="#" class="sidebar-button" onclick="openSidebarTab (event, 'settings')"> Settings </a>
 				</li>
-			<li class="sidebar-li">
-				<a class="sidebar-a" asp-page="/Logout"> Sign out </a>
+				<li class="sidebar-li empty">
+
+				</li>
+			<li class="sidebar-li signout">
+				<a class="sidebar-button" asp-page="/Logout"> Sign out </a>
 			</li>
 		</ul>
+		
 	</div>
-	<div id="main"> Hello, @Model.User.Identity?.Name </div>
+
+
+
+
+	<div id="main" class="sidebar-content">
+		<h2 class="heading2" style="text-align: center; padding-top: 20px"> Hello, @Model.User.Identity?.Name </h2>
+		<div style="font-size: 20px; padding-left: 40px;"> Words added: @Model.WordsPerUser </div>
+	</div>
+
+
+	<div id="settings" class="sidebar-content"> 
+		<h3> SETTINGs </h3>
+		<form method="post">
+			<p> Change Password </p>
+			<div>
+				<label> Current Password: </label>
+				<input />
+			</div>
+			<div>
+				<label> New Password: </label>
+				<input />
+			</div>
+			<div>
+				<label> Confirm new Password: </label>
+				<input />
+			</div>
+			<div>
+				<input type="submit" value="Change" asp-page-handler="changePassword" />
+			</div>
+		</form>
+	</div>
 
 </div>
+
+@*<div class="container">
+	<div class="tab">
+		<button class="sidebar-button" onclick="openSidebarTab (event, 'main')" > Main </button>
+		<button class="sidebar-button" onclick="openSidebarTab (event, 'settings')" id="defaultOpen"> Settings </button>
+	</div>
+
+	<div id="main" class="sidebar-content">
+		<h3> Hello, @Model.User.Identity?.Name </h3>
+		<p> Words added: @Model.WordsPerUser </p>
+	</div>
+
+	<div id="settings" class="sidebar-content">
+		<div> SETTINGS </div>
+	</div>
+</div>*@
+
+
+@section Scripts {
+<script>
+	function openSidebarTab (evt, tabName) {
+		var i, tabcontent, tablinks;
+		tabcontent = document.getElementsByClassName("sidebar-content");
+		for (i = 0; i < tabcontent.length; i++)
+		{
+			tabcontent[i].style.display = "none";
+		}
+		tablinks = document.getElementsByClassName("sidebar-button");
+		for (i = 0; i < tablinks.length; i++)
+		{
+			tablinks[i].className = tablinks[i].className.replace(" active", "");
+		}
+
+		document.getElementById(tabName).style.display = "block";
+		evt.currentTarget.className += " active";
+	}
+
+	document.getElementById("active-sidebar").click();
+</script>
+
+		}
+
+		

@@ -36,8 +36,20 @@
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="~/js/site.js" asp-append-version="true"></script>
 
-	@await RenderSectionAsync("Scripts", required: false)
 
+	@await RenderSectionAsync("Scripts", required: false) 
 
+	@*<div> 
+			@if (IsSectionDefined("Scripts"))
+			{
+		<p> scripts </p>
+		@await RenderSectionAsync("Scripts");
+	}
+	else
+	{
+		<p> no scripts </p>
+	}
+		</div>
+	*@
 </body>
 </html>
