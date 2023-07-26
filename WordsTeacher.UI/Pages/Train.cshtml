@@ -6,27 +6,42 @@
 
 @section nav_section{
 	<header>
-		<div class="container-fluid navi">
-			<nav class="navbar justify-content-center ">
-				<ul class="nav">
+		<div class="navi">
+			<nav>
+				<ul class="navi-ul">
 
-					<li class="nav-item">
-						<a class="nav-link" asp-area="" asp-page="/WordPage">Words</a>
+					<li class="navi-li">
+						<a class="navi-a" asp-area="" asp-page="/WordPage">Words</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link active" asp-area="" asp-page="/Train">Train</a>
+					<li class="navi-li">
+						<a class="navi-a" id="active-page-nav" asp-area="" asp-page="/Train">Train</a>
 					</li>
 
 					@if (User.Identity is not null && User.Identity.IsAuthenticated)
 					{
-						<li class="nav-item">
-							<a class="nav-link last" asp-area="" asp-page="/Logout">Logout (@User.Identity.Name)</a>
+						<li class="navi-li li-last">
+							<a class="navi-a" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+								@Model.User.Identity?.Name
+								<img class="img-nav" src="images/user_icn.png" />
+							</a>
+
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li class="sidebar-li">
+									<a class="sidebar-button" asp-page="/Account">Manage account</a>
+								</li>
+								<li class="sidebar-li empty">
+
+								</li>
+								<li class="sidebar-li signout">
+									<a class="sidebar-button" asp-page="/Logout">Sign out</a>
+								</li>
+							</ul>
 						</li>
 					}
 					else
 					{
-						<li class="nav-item">
-							<a class="nav-link last" asp-area="" asp-page="/Index">Login</a>
+						<li class="navi-li li-last">
+							<a class="navi-a" asp-area="" asp-page="/Index">Sign In</a>
 						</li>
 					}
 				</ul>

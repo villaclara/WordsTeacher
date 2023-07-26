@@ -59,6 +59,7 @@ namespace WordsTeacher.UI.Pages
 				ErrorAddingMessage = $"The word - {OneWord.Definition.Trim()} - is already in database.";
 			}
 
+
 			// use cookies to add error message if the word already exists
 			HttpContext.Response.Cookies.Append("error", ErrorAddingMessage);
 

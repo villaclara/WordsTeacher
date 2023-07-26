@@ -1,0 +1,87 @@
+﻿@page
+@model WordsTeacher.UI.Pages.AccountModel
+@{
+}
+
+@section nav_section{
+	<header>
+		<div class="navi">
+			<nav>
+				<ul class="navi-ul">
+					<li class="navi-li">
+						<a class="navi-a" asp-area="" asp-page="/WordPage">Words</a>
+					</li>
+					<li class="navi-li">
+						<a class="navi-a" asp-area="" asp-page="/Train">Train</a>
+					</li>
+
+					@if (User.Identity is not null && User.Identity.IsAuthenticated)
+					{
+						<li class="navi-li li-last">
+							<a class="navi-a" href="#" role="button" id="dropdownMenuLink-active" data-bs-toggle="dropdown" aria-expanded="false">
+								@Model.User.Identity?.Name
+								<img class="img-nav" src="images/user_icn_green.png"/>
+							</a>
+
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li class="sidebar-li">
+									<a class="sidebar-button" asp-page="/Account">Manage account</a>
+								</li>
+								<li class="sidebar-li empty">
+
+								</li>
+								<li class="sidebar-li signout">
+									<a class="sidebar-button signout" asp-page="/Logout">Sign out</a>
+								</li>
+							</ul>
+						</li>
+					}
+					else
+					{
+						<li class="navi-li li-last">
+							<a class="navi-a" id="active-page-nav" asp-area="" asp-page="/Index">Sign In</a>
+						</li>
+					}
+				</ul>
+			</nav>
+		</div>
+
+	</header>
+}
+
+
+
+<div class="container">
+
+	<h2 class="hello-user"> Hello, @Model.User.Identity?.Name </h2>
+	<p class="hello-user"> Words added: @Model.WordsPerUser </p>
+</div>
+
+<div id="change-password-div">
+	<form method="post">
+		<span> @Model.IsPwdChanged </span>
+		<p class="change-password"> Change Password </p>
+		<div>
+			<label class="form-label change-pwd"> Current Password: </label>
+			<input class="form-control change-pwd" style="margin-bottom: 20px" type="password" required asp-for="ChangePwd.OldPwd"/>
+		</div>
+		<div>
+			<label class="form-label change-pwd" aria-describedby="pwd-requirements"> New Password: </label>
+			<input class="form-control change-pwd" type="password" required asp-for="ChangePwd.NewPwd" />
+			<div id="pwd-requirements">Must be at least 4 characters long.</div>
+		</div>
+		<div>
+			<label class="form-label change-pwd"> Confirm new Password: </label>
+			<input class="form-control change-pwd" type="password" required asp-for="ChangePwd.ConfirmedNewPwd" />
+		</div>
+		<div>
+			<input class="btn btn-secondary" type="submit" value="Change" asp-page-handler="changePassword" />
+		</div>
+	</form>
+</div>
+
+
+
+
+
+		
