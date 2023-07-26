@@ -31,7 +31,7 @@
 
 								</li>
 								<li class="sidebar-li signout">
-									<a class="sidebar-button" asp-page="/Logout">Sign out</a>
+									<a class="sidebar-button signout" asp-page="/Logout">Sign out</a>
 								</li>
 							</ul>
 						</li>
@@ -59,19 +59,20 @@
 
 <div id="change-password-div">
 	<form method="post">
+		<span> @Model.IsPwdChanged </span>
 		<p class="change-password"> Change Password </p>
 		<div>
 			<label class="form-label change-pwd"> Current Password: </label>
-			<input class="form-control change-pwd" style="margin-bottom: 20px" type="password" />
+			<input class="form-control change-pwd" style="margin-bottom: 20px" type="password" required asp-for="ChangePwd.OldPwd"/>
 		</div>
 		<div>
 			<label class="form-label change-pwd" aria-describedby="pwd-requirements"> New Password: </label>
-			<input class="form-control change-pwd" type="password" />
+			<input class="form-control change-pwd" type="password" required asp-for="ChangePwd.NewPwd" />
 			<div id="pwd-requirements">Must be at least 4 characters long.</div>
 		</div>
 		<div>
 			<label class="form-label change-pwd"> Confirm new Password: </label>
-			<input class="form-control change-pwd" type="password" />
+			<input class="form-control change-pwd" type="password" required asp-for="ChangePwd.ConfirmedNewPwd" />
 		</div>
 		<div>
 			<input class="btn btn-secondary" type="submit" value="Change" asp-page-handler="changePassword" />
