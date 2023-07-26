@@ -146,7 +146,7 @@ a.active {
 
     ul.navi-ul {
         list-style-type: none;
-        overflow: hidden;
+        overflow: visible;
         margin: 0 0 0 200px;
         padding: 0 0 0 0;
         height: 45px;
@@ -260,6 +260,17 @@ a.active {
         border-left: none;
         height: 300px;
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+
+
+    a#dropdownMenuLink-active {
+        background-color: black;
+        color: #0dbe98;
+        border-right: 1px solid black;
+    }
+
+    a#dropdownMenuLink-active:hover {
+        color: white;
     }
 }
 

@@ -19,6 +19,19 @@
 					@if (User.Identity is not null && User.Identity.IsAuthenticated)
 					{
 						<li class="navi-li li-last">
+							<a class="navi-a" href="#" role="button" id="dropdownMenuLink-active" data-bs-toggle="dropdown" aria-expanded="false">
+								@Model.User.Identity?.Name
+								<img class="img-nav" src="images/user_icn_green.png"/>
+							</a>
+
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li class="sidebar-li"><a class="sidebar-button" asp-page="/Account">Manage account</a></li>
+								<li class="sidebar-li signout"><a class="sidebar-button" asp-page="/Logout">Sign out</a></li>
+							</ul>
+						</li>
+						
+
+						@*<li class="navi-li li-last">
 							<a class="navi-a" id="active-page-nav" asp-page="/Account">
 								@Model.User.Identity?.Name
 								<img class="img-nav" src="images/user_icn_green.png" />
@@ -29,7 +42,7 @@
 								<a class="dropdown-item" href="#">Another action</a>
 								<a class="dropdown-item" href="#">Something else here</a>
 							</div>*@
-						</li>
+						@*</li>*@
 					}
 					else
 					{
@@ -46,56 +59,9 @@
 
 
 
-<div>
-	<div id="tab"> 
-		<ul class="sidebar-ul">
-			<li class="sidebar-li">
-					<a href="#" id="active-sidebar" class="sidebar-button" onclick="openSidebarTab (event, 'main')"> Main </a>
-				</li>
-			<li class="sidebar-li">
-				<a href="#" class="sidebar-button" onclick="openSidebarTab (event, 'settings')"> Settings </a>
-				</li>
-				<li class="sidebar-li empty">
+<div class="container">
 
-				</li>
-			<li class="sidebar-li signout">
-				<a class="sidebar-button" asp-page="/Logout"> Sign out </a>
-			</li>
-		</ul>
-		
-	</div>
-
-
-
-
-	<div id="main" class="sidebar-content">
-		<h2 class="heading2" style="text-align: center; padding-top: 20px"> Hello, @Model.User.Identity?.Name </h2>
-		<div style="font-size: 20px; padding-left: 40px;"> Words added: @Model.WordsPerUser </div>
-	</div>
-
-
-	<div id="settings" class="sidebar-content"> 
-		<h3> SETTINGs </h3>
-		<form method="post">
-			<p> Change Password </p>
-			<div>
-				<label> Current Password: </label>
-				<input />
-			</div>
-			<div>
-				<label> New Password: </label>
-				<input />
-			</div>
-			<div>
-				<label> Confirm new Password: </label>
-				<input />
-			</div>
-			<div>
-				<input type="submit" value="Change" asp-page-handler="changePassword" />
-			</div>
-		</form>
-	</div>
-
+	<h2> Hello, @Model.User.Identity?.Name </h2>
 </div>
 
 @*<div class="container">
@@ -115,28 +81,5 @@
 </div>*@
 
 
-@section Scripts {
-<script>
-	function openSidebarTab (evt, tabName) {
-		var i, tabcontent, tablinks;
-		tabcontent = document.getElementsByClassName("sidebar-content");
-		for (i = 0; i < tabcontent.length; i++)
-		{
-			tabcontent[i].style.display = "none";
-		}
-		tablinks = document.getElementsByClassName("sidebar-button");
-		for (i = 0; i < tablinks.length; i++)
-		{
-			tablinks[i].className = tablinks[i].className.replace(" active", "");
-		}
-
-		document.getElementById(tabName).style.display = "block";
-		evt.currentTarget.className += " active";
-	}
-
-	document.getElementById("active-sidebar").click();
-</script>
-
-		}
 
 		
