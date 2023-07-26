@@ -39,6 +39,7 @@ Viewport is the browser window size. 1vw = 1% of viewport width. If the viewport
 
 body {
     padding-bottom: 40px;
+    overflow-y: scroll;
 }
 
 
@@ -57,6 +58,7 @@ footer.border-top.footer.text-muted {
 
 div.navi {
     background-color: #0dbe98;
+    
 }
 
 
@@ -322,7 +324,7 @@ a.active {
     }
 
 
-    input.btn.btn-secondary {
+    input.btn.btn-secondary.c-pw {
         width: 200px;
         margin-left: 25%;
         margin-top: 40px;
@@ -467,6 +469,7 @@ a.active {
 
         li.sidebar-li.empty {
             border: none;
+            height: 20px;
         }
 
         li.sidebar-li.signout {
@@ -554,16 +557,17 @@ a.active {
     p.change-password {
         font-size: 20px;
         text-align: center;
-        padding-top: 20px;
-        text-shadow: 0 0 0.2em #0dbe98;
+        padding-top: 10px;
+        text-shadow: 1px 0 0 black;
     }
 
     label.change-pwd {
         margin-left: 20px;
         display: block;
-        padding: 10px 0 0 0;
+        padding: 1px 0 0 0;
         font-size: 18px;
         width: 200px;
+        text-shadow: 0 0 0.2em #0dbe98;
     }
 
     input.change-pwd {
@@ -578,7 +582,7 @@ a.active {
     }
 
 
-    input.btn.btn-secondary {
+    input.btn.btn-secondary.c-pw {
         width: 200px;
         margin-left: 23%;
         margin-top: 40px;

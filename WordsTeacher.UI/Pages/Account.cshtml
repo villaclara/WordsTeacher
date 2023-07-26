@@ -19,7 +19,7 @@
 					{
 						<li class="navi-li li-last">
 							<a class="navi-a" href="#" role="button" id="dropdownMenuLink-active" data-bs-toggle="dropdown" aria-expanded="false">
-								@Model.User.Identity?.Name
+								Me
 								<img class="img-nav" src="images/user_icn_green.png"/>
 							</a>
 
@@ -75,7 +75,7 @@
 			<input class="form-control change-pwd" type="password" required asp-for="ChangePwd.ConfirmedNewPwd" />
 		</div>
 		<div>
-			<input class="btn btn-secondary" type="submit" value="Change" asp-page-handler="changePassword" />
+			<input class="btn btn-secondary c-pw" type="submit" value="Change Password" asp-page-handler="changePassword" />
 		</div>
 	</form>
 </div>

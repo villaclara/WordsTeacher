@@ -45,28 +45,32 @@ namespace WordsTeacher.UI.Pages
 
         public async Task OnPostChangePassword()
         {
-            
-            if (ChangePwd.NewPwd != ChangePwd.ConfirmedNewPwd)
+
+            if (!IsMatchPasswords(ChangePwd.NewPwd, ChangePwd.ConfirmedNewPwd))
             {
-                IsPwdChanged = "New and Confirmed passwords do not match.";
+                IsPwdChanged = "New Passwords do not match.";
             }
 
-
-            var user = _context.Users.FirstOrDefault(u => u.UserName == _username);
-            if (user != null)
+            else
             {
-                var result = await _userManager.ChangePasswordAsync(user, ChangePwd.OldPwd, ChangePwd.NewPwd);
-
-                if (result.Succeeded)
+                var user = _context.Users.FirstOrDefault(u => u.UserName == _username);
+                if (user != null)
                 {
-                    IsPwdChanged = "Password Changed.";
+                    var result = await _userManager.ChangePasswordAsync(user, ChangePwd.OldPwd, ChangePwd.NewPwd);
+
+                    if (result.Succeeded)
+                    {
+                        IsPwdChanged = "Password Changed.";
+                    }
+                    else
+                        IsPwdChanged = "Old Password is incorrect or New is too short.";
                 }
-                else
-                    IsPwdChanged = "Old Password is incorrect or new Password is to short.";
+
             }
-            
             
         }
+
+        private static bool IsMatchPasswords (string p1, string p2) => p1 == p2;
 
 	}
 }
