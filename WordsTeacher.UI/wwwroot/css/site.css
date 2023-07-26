@@ -205,11 +205,9 @@ a.active {
         /* li item of left ul sidebar*/
     li.sidebar-li {
         font-size: 20px;
-        border-top: 1px solid black;
-        width: 200px;
+        width: 150px;
         height: 50px;
         color: black;
-        text-shadow: 1px 0 0 black;
     }
 
     li.sidebar-li.empty {
@@ -271,6 +269,61 @@ a.active {
 
     a#dropdownMenuLink-active:hover {
         color: white;
+    }
+
+
+    h2.hello-user {
+        width: 100%;
+        text-align: center;
+        padding-top: 20px;
+    }
+
+    p.hello-user {
+        font-size: 18px;
+        text-align: center;
+        padding-bottom: 10px;
+    }
+
+    div#change-password-div {
+        width: 400px;
+        float: left;
+        margin-left: 50px;
+        border-left: 1px groove grey;
+        border-bottom: 1px groove grey;
+    }
+
+    p.change-password {
+        font-size: 20px;
+        text-align: center;
+        text-shadow: 1px 0 0 black;
+    }
+
+    label.change-pwd {
+        margin-left: 20px;
+        display: block;
+        padding: 10px 0 0 0;
+        font-size: 18px;
+        width: 300px;
+        text-shadow: 0 0 0.2em #0dbe98;
+    }
+
+    input.change-pwd {
+        display: block;
+        width: 100%;
+    }
+
+    div#pwd-requirements {
+        padding: 0;
+        margin: 0;
+        font-size: 12px;
+    }
+
+
+    input.btn.btn-secondary {
+        width: 200px;
+        margin-left: 25%;
+        margin-top: 40px;
+        margin-bottom: 20px;
     }
 }
 
@@ -348,7 +401,7 @@ a.active {
 
     ul.navi-ul {
         list-style-type: none;
-        overflow: hidden;
+        overflow: visible;
         margin: 0 0 0 15px;
         padding: 0 0 0 0;
         height: 12vw;
@@ -359,6 +412,7 @@ a.active {
         margin: 0 0 0 0;
         width: 100px;
         padding: 0 0 0 0;
+        border-right: 1px solid black;
     }
 
     img.img-nav {
@@ -369,8 +423,8 @@ a.active {
 
     li.navi-li.li-last {
         float: right;
-        margin: 0 15px 0 0;
-        border-right: none;
+        margin: 0 0 0 0;
+        border-right: 1px solid black;
     }
 
     a.navi-a {
@@ -383,6 +437,146 @@ a.active {
         padding: 5px 1px 0px 0;
         margin: 0 0 0 0;
         height: 12vw;
+    }
+
+
+    /* ACCOUNT PAGE */
+
+    /* tab menu left sidebar */
+    div#tab {
+        height: 250px;
+        float: left;
+        width: 200px;
+    }
+
+
+    /* ul of left sidebar */
+    ul.sidebar-ul {
+        list-style-type: none;
+        padding-top: 20px;
+    }
+
+    /* li item of left ul sidebar*/
+    li.sidebar-li {
+        font-size: 20px;
+        width: 150px;
+        height: 50px;
+        color: black;
+    }
+
+        li.sidebar-li.empty {
+            border: none;
+        }
+
+        li.sidebar-li.signout {
+            color: red;
+            text-shadow: 1px 0 0 pink;
+        }
+
+    /* left sidebar link tab */
+    a.sidebar-button {
+        display: block;
+        background-color: inherit;
+        width: 100%;
+        border: none;
+        outline: none;
+        text-align: left;
+        cursor: pointer;
+        transition: 0.3s;
+        font-size: 17px;
+        text-decoration: none;
+        text-shadow: inherit;
+        height: 50px;
+        padding: 10px;
+        color: inherit;
+    }
+
+        /* Change background color of buttons on hover */
+        a.sidebar-button:hover {
+            color: white;
+            background-color: #0dbe98;
+        }
+
+        /* Create an active/current "tab button" class */
+        a.sidebar-button.active {
+            background-color: #0dbe98;
+        }
+
+    /* Style the tab content */
+    div.sidebar-content {
+        float: left;
+        padding: 0px 12px;
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        width: 70%;
+        border-left: none;
+        height: 300px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+
+
+    a#dropdownMenuLink-active {
+        background-color: black;
+        color: #0dbe98;
+        border-right: 1px solid black;
+    }
+
+        a#dropdownMenuLink-active:hover {
+            color: white;
+        }
+
+
+    h2.hello-user {
+        width: 100%;
+        text-align: center;
+        padding-top: 20px;
+    }
+
+    p.hello-user {
+        font-size: 18px;
+        text-align: center;
+        padding-bottom: 10px;
+        border-bottom: 1px groove black;
+    }
+
+    div#change-password-div {
+        width: 400px;
+        float: left;
+        text-shadow: 1px 0 0 black;
+    }
+
+    p.change-password {
+        font-size: 20px;
+        text-align: center;
+        padding-top: 20px;
+        text-shadow: 0 0 0.2em #0dbe98;
+    }
+
+    label.change-pwd {
+        margin-left: 20px;
+        display: block;
+        padding: 10px 0 0 0;
+        font-size: 18px;
+        width: 200px;
+    }
+
+    input.change-pwd {
+        display: block;
+        width: 90%;
+    }
+
+    div#pwd-requirements {
+        padding: 0;
+        margin: 0;
+        font-size: 12px;
+    }
+
+
+    input.btn.btn-secondary {
+        width: 200px;
+        margin-left: 23%;
+        margin-top: 40px;
+        margin-bottom: 20px;
     }
 }
 

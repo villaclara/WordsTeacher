@@ -8,7 +8,6 @@
 		<div class="navi">
 			<nav>
 				<ul class="navi-ul">
-
 					<li class="navi-li">
 						<a class="navi-a" asp-area="" asp-page="/WordPage">Words</a>
 					</li>
@@ -25,24 +24,17 @@
 							</a>
 
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<li class="sidebar-li"><a class="sidebar-button" asp-page="/Account">Manage account</a></li>
-								<li class="sidebar-li signout"><a class="sidebar-button" asp-page="/Logout">Sign out</a></li>
+								<li class="sidebar-li">
+									<a class="sidebar-button" asp-page="/Account">Manage account</a>
+								</li>
+								<li class="sidebar-li empty">
+
+								</li>
+								<li class="sidebar-li signout">
+									<a class="sidebar-button" asp-page="/Logout">Sign out</a>
+								</li>
 							</ul>
 						</li>
-						
-
-						@*<li class="navi-li li-last">
-							<a class="navi-a" id="active-page-nav" asp-page="/Account">
-								@Model.User.Identity?.Name
-								<img class="img-nav" src="images/user_icn_green.png" />
-							</a>
-							
-							@*<div class="dropdown-menu">
-								<a class="dropdown-item" href="#">Action</a>
-								<a class="dropdown-item" href="#">Another action</a>
-								<a class="dropdown-item" href="#">Something else here</a>
-							</div>*@
-						@*</li>*@
 					}
 					else
 					{
@@ -61,24 +53,33 @@
 
 <div class="container">
 
-	<h2> Hello, @Model.User.Identity?.Name </h2>
+	<h2 class="hello-user"> Hello, @Model.User.Identity?.Name </h2>
+	<p class="hello-user"> Words added: @Model.WordsPerUser </p>
 </div>
 
-@*<div class="container">
-	<div class="tab">
-		<button class="sidebar-button" onclick="openSidebarTab (event, 'main')" > Main </button>
-		<button class="sidebar-button" onclick="openSidebarTab (event, 'settings')" id="defaultOpen"> Settings </button>
-	</div>
+<div id="change-password-div">
+	<form method="post">
+		<p class="change-password"> Change Password </p>
+		<div>
+			<label class="form-label change-pwd"> Current Password: </label>
+			<input class="form-control change-pwd" style="margin-bottom: 20px" type="password" />
+		</div>
+		<div>
+			<label class="form-label change-pwd" aria-describedby="pwd-requirements"> New Password: </label>
+			<input class="form-control change-pwd" type="password" />
+			<div id="pwd-requirements">Must be at least 4 characters long.</div>
+		</div>
+		<div>
+			<label class="form-label change-pwd"> Confirm new Password: </label>
+			<input class="form-control change-pwd" type="password" />
+		</div>
+		<div>
+			<input class="btn btn-secondary" type="submit" value="Change" asp-page-handler="changePassword" />
+		</div>
+	</form>
+</div>
 
-	<div id="main" class="sidebar-content">
-		<h3> Hello, @Model.User.Identity?.Name </h3>
-		<p> Words added: @Model.WordsPerUser </p>
-	</div>
 
-	<div id="settings" class="sidebar-content">
-		<div> SETTINGS </div>
-	</div>
-</div>*@
 
 
 

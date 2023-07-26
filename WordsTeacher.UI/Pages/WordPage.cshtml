@@ -22,10 +22,22 @@
 					@if (User.Identity is not null && User.Identity.IsAuthenticated)
 					{
 						<li class="navi-li li-last">
-							<a class="navi-a" asp-page="/Account">
+							<a class="navi-a" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
 								@Model.User.Identity?.Name
 								<img class="img-nav" src="images/user_icn.png" />
 							</a>
+
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li class="sidebar-li">
+									<a class="sidebar-button" asp-page="/Account">Manage account</a>
+								</li>
+								<li class="sidebar-li empty">
+
+								</li>
+								<li class="sidebar-li signout">
+									<a class="sidebar-button" asp-page="/Logout">Sign out</a>
+								</li>
+							</ul>
 						</li>
 					}
 					else

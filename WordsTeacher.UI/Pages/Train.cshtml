@@ -26,16 +26,17 @@
 							</a>
 
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<li><a class="dropdown-item sidebar-button" asp-page="/Account">Manage account</a></li>
-								<li><a class="dropdown-item sidebar-button" asp-page="/Logout">Sign out</a></li>
+								<li class="sidebar-li">
+									<a class="sidebar-button" asp-page="/Account">Manage account</a>
+								</li>
+								<li class="sidebar-li empty">
+
+								</li>
+								<li class="sidebar-li signout">
+									<a class="sidebar-button" asp-page="/Logout">Sign out</a>
+								</li>
 							</ul>
 						</li>
-						@*<li class="navi-li li-last">
-							<a class="navi-a" asp-page="/Account">
-								@Model.User.Identity?.Name
-								<img class="img-nav" src="images/user_icn.png" />
-							</a>
-						</li>*@
 					}
 					else
 					{
