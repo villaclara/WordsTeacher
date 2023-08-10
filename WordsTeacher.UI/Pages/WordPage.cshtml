@@ -86,12 +86,26 @@
 	<div class="heading-word">
 		<h2 class="heading2"> Words </h2>
 	</div>
-	<div>
+	<div class="container" style="padding: 5px 0 10px 0">
 		<form asp-page-handler="newToOld" method="post" style="display: inline">
-			<button class="btn btn-outline-primary btn-sm">newest to oldest</button>
+			@if (Model.OrderWords == WordsOrder.NewestToOldest)
+			{
+				<button class="btn btn-secondary btn-sm">newest to oldest</button>
+			}
+			else
+			{
+				<button class="btn btn-outline-secondary btn-sm">newest to oldest</button>
+			}
 		</form>
 		<form asp-page-handler="oldToNew" method="post" style="display: inline">
-			<button class="btn btn-outline-primary btn-sm">oldest to newest</button>
+			@if(Model.OrderWords == WordsOrder.NewestToOldest)
+			{
+				<button class="btn btn-outline-secondary btn-sm">oldest to newest</button>
+			}
+			else 
+			{
+				<button class="btn btn-secondary btn-sm">oldest to newest</button>
+			}
 		</form>
 	</div>
 	@{

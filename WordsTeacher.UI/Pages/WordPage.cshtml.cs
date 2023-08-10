@@ -25,7 +25,7 @@ namespace WordsTeacher.UI.Pages
 
 		private readonly string? _username;
 
-		private WordsOrder _wordsOrder = WordsOrder.NewestToOldest;
+		public WordsOrder OrderWords = WordsOrder.NewestToOldest;
 
 		public string ErrorAddingMessage { get; set; } = "";
 
@@ -49,13 +49,13 @@ namespace WordsTeacher.UI.Pages
 
 		
 
-		public void OnGet(bool newtoold)
+		public void OnGet()
 		{
 			if (_username is not null)
 			{
 				Words = new GetWords(_ctx).Do(_username);
 
-				if (newtoold)
+				if (OrderWords == WordsOrder.NewestToOldest)
 				{ Words = Words.Reverse(); }
 
 				ErrorAddingMessage = HttpContext.Request.Cookies["error"] ?? "";
@@ -67,7 +67,7 @@ namespace WordsTeacher.UI.Pages
 		// default post with method=post button=submit
 		public async Task OnPostAsync()
 		{
-			bool wordAdded = await new CreateWord(_ctx).Do(new Word()
+			bool isWordAdded = await new CreateWord(_ctx).Do(new Word()
 			{
 				//Id = _ctx.Words.Count() + 1, - automatically increments in the db
 				Definition = OneWord.Definition.Trim(),
@@ -75,7 +75,7 @@ namespace WordsTeacher.UI.Pages
 				NickName = _username!
 			});
 
-			if (!wordAdded)
+			if (!isWordAdded)
 			{
 				ErrorAddingMessage = $"The word - {OneWord.Definition.Trim()} - is already in database.";
 			}
@@ -101,12 +101,14 @@ namespace WordsTeacher.UI.Pages
 
 		public async Task OnPostNewToOldAsync ()
 		{
-			OnGet(true);
+			OrderWords = WordsOrder.NewestToOldest;
+			OnGet();
 		}
 
 		public async Task OnPostOldToNewAsync()
 		{
-			OnGet(false);
+			OrderWords = WordsOrder.OldestToNewest;
+			OnGet();
 		}
 	}
 }
