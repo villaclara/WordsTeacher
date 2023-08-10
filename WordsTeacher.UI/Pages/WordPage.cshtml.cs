@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using WordsTeacher.Application;
 using WordsTeacher.Application.Words;
 using WordsTeacher.DB;
@@ -10,6 +11,12 @@ using WordsTeacher.Domain;
 
 namespace WordsTeacher.UI.Pages
 {
+	public enum WordsOrder : byte
+	{
+		NewestToOldest = 1,
+		OldestToNewest = 2
+	}
+
 	public class WordPageModel : PageModel
 	{
 		private readonly ApplicationContext _ctx;
@@ -18,25 +25,39 @@ namespace WordsTeacher.UI.Pages
 
 		private readonly string? _username;
 
-		public string ErrorAddingMessage { get; set; } = "";
+		private WordsOrder _wordsOrder = WordsOrder.NewestToOldest;
 
-		public WordPageModel(ApplicationContext ctx, SignInManager<IdentityUser> signInManager)
-		{
-			_ctx = ctx;
-			_signInManager = signInManager;
-			_username = _signInManager.Context.User.Identity?.Name;
-		}
+		public string ErrorAddingMessage { get; set; } = "";
 
 		[BindProperty]
 		public Word OneWord { get; set; } = null!;
 
 		public IEnumerable<Word> Words { get; set; } = Enumerable.Empty<Word>();
 
-		public void OnGet()
+		
+
+		public WordPageModel(ApplicationContext ctx, SignInManager<IdentityUser> signInManager)
+		{
+			_ctx = ctx;
+			_signInManager = signInManager;
+			_username = _signInManager.Context.User.Identity?.Name;
+			//if (_username is not null)
+			//{
+			//	Words = new GetWords(_ctx).Do(_username).Reverse();
+			//}
+		}
+
+		
+
+		public void OnGet(bool newtoold)
 		{
 			if (_username is not null)
 			{
 				Words = new GetWords(_ctx).Do(_username);
+
+				if (newtoold)
+				{ Words = Words.Reverse(); }
+
 				ErrorAddingMessage = HttpContext.Request.Cookies["error"] ?? "";
 			}
 
@@ -76,6 +97,16 @@ namespace WordsTeacher.UI.Pages
 
 			HttpContext.Response.Redirect("WordPage");
 			//return RedirectToPage("WordPage");
+		}
+
+		public async Task OnPostNewToOldAsync ()
+		{
+			OnGet(true);
+		}
+
+		public async Task OnPostOldToNewAsync()
+		{
+			OnGet(false);
 		}
 	}
 }

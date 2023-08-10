@@ -86,6 +86,14 @@
 	<div class="heading-word">
 		<h2 class="heading2"> Words </h2>
 	</div>
+	<div>
+		<form asp-page-handler="newToOld" method="post" style="display: inline">
+			<button class="btn btn-outline-primary btn-sm">newest to oldest</button>
+		</form>
+		<form asp-page-handler="oldToNew" method="post" style="display: inline">
+			<button class="btn btn-outline-primary btn-sm">oldest to newest</button>
+		</form>
+	</div>
 	@{
 		@if (Model.Words.Count() > 0)
 		{
